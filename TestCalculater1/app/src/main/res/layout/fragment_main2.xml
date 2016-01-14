@@ -121,7 +121,8 @@
             android:layout_height="0dp"
             android:layout_gravity="fill"
             android:text="CM"
-            android:id="@+id/buttonCM" />
+            android:id="@+id/buttonCM"
+            android:textSize="40dp" />
 
         <Button
             android:layout_column="1"
