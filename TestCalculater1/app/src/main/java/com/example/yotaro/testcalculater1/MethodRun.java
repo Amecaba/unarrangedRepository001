@@ -76,6 +76,8 @@ public class MethodRun {
             applyFLoatString=applyFloatStringBC;
         }
 
+        MethodAddList methodAddList=new MethodAddList(v,firstFloat,secondFloat,applyFloat,method);
+
         mainTextView.setText(applyFLoatString);
     }
 

@@ -52,5 +52,17 @@ public class OnClickListenerEqual implements View.OnClickListener {
         SharedPreferences.Editor myEFEditor=myEqualFlag.edit();
         myEFEditor.putInt("mEFlag",1);
         myEFEditor.commit();
+
+        SharedPreferences myPrefCompleteFlag=v.getContext().getSharedPreferences("myPrefCompleteFlag",Context.MODE_PRIVATE);
+        SharedPreferences.Editor mPCFEditor=myPrefCompleteFlag.edit();
+        mPCFEditor.putInt("mPCFlag", 1);
+        mPCFEditor.commit();
+
+        SharedPreferences myPrefGrandTotal=v.getContext().getSharedPreferences("grandtotal",Context.MODE_PRIVATE);
+        SharedPreferences.Editor myPrefGTEditor=myPrefGrandTotal.edit();
+        double gtNumber=Double.parseDouble(myPrefGrandTotal.getString("gtnumber", "0"));
+        double returnGtNumber=gtNumber+methodRun.applyFloat;
+        myPrefGTEditor.putString("gtnumber",String.valueOf(returnGtNumber));
+        myPrefGTEditor.commit();
     }
 }

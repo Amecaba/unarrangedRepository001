@@ -40,6 +40,8 @@ public class MethodClear {
                     SharedPreferences.Editor myPrefMethodEditor=method.edit();
                     myPrefCompleteFlag=v.getContext().getSharedPreferences("myPrefCompleteFlag",Context.MODE_PRIVATE);
                     SharedPreferences.Editor myPrefCompleteFlagEditor=myPrefCompleteFlag.edit();
+                    SharedPreferences myPrefMemory=v.getContext().getSharedPreferences("memory",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor myPrefMemoryEditor=myPrefMemory.edit();
 
                     firstIntEditor.remove("firstFloat");
                     firstIntEditor.commit();
@@ -49,6 +51,8 @@ public class MethodClear {
                     myPrefCompleteFlagEditor.commit();
 
                     //ここにプラスしてメモリの削除も記載
+                    myPrefMemoryEditor.remove("memory");
+                    myPrefMemoryEditor.commit();
                 }
                 else if(i==1){
                     TextView methodTextView=(TextView)v.getRootView().findViewById(R.id.methodview);

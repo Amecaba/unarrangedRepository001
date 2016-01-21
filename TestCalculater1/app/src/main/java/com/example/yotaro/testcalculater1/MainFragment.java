@@ -132,6 +132,34 @@ public class MainFragment extends Fragment {
             ibutton.setOnClickListener(onClickListenerCseries);
         }
 
+        ArrayList<Integer> buttonIdListMseries=new ArrayList<Integer>();
+        buttonIdListMseries.add(R.id.buttonMP);
+        buttonIdListMseries.add(R.id.buttonMM);
+        buttonIdListMseries.add(R.id.buttonCM);
+        buttonIdListMseries.add(R.id.buttonRM);
+        ArrayList<Button> buttonListMseries=new ArrayList<Button>();
+        for(int i=0;i<=3;i++)
+        {
+            buttonListMseries.add((Button)returnView.getRootView().findViewById(buttonIdListMseries.get(i)));
+        }
+        OnClickListenerMseries onClickListenerMseries=new OnClickListenerMseries(buttonListMseries);
+        for(Button i:buttonListMseries){
+            i.setOnClickListener(onClickListenerMseries);
+        }
+
+        ArrayList<Integer> othersButtonIdList=new ArrayList<>();
+        othersButtonIdList.add(R.id.buttonGT);
+        othersButtonIdList.add(R.id.buttonPM);
+        othersButtonIdList.add(R.id.buttonroot);
+        othersButtonIdList.add(R.id.buttonarrow);
+        ArrayList<Button> othersButtonList=new ArrayList<>();
+        for(int i=0;i<=3;i++){
+            othersButtonList.add((Button)returnView.getRootView().findViewById(othersButtonIdList.get(i)));
+        }
+        OnClickListenerOthers onClickListenerOthers=new OnClickListenerOthers();
+        for(Button cercle:othersButtonList){
+            cercle.setOnClickListener(onClickListenerOthers);
+        }
 
         return returnView;
     }
