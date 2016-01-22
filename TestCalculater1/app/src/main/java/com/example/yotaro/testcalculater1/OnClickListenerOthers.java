@@ -17,36 +17,50 @@ public class OnClickListenerOthers implements View.OnClickListener {
         String returnString="0";
         double mainTextViewDouble=Double.parseDouble(mainTextViewString);
         double returnMainTextViewDouble;
+        SharedPreferences myPrefGrandTotal = v.getContext().getSharedPreferences("grandtotal", Context.MODE_PRIVATE);
 
         if(v==v.getRootView().findViewById(R.id.buttonarrow)){
             mainTextView.setText(mainTextViewString.substring(0,mainTextViewString.length()-1));
+
+            //GT2度押しフラグの解除
+            SharedPreferences.Editor myPrefGTEditor=myPrefGrandTotal.edit();
+            myPrefGTEditor.remove("key");
+            myPrefGTEditor.commit();
+
+        }else if(v==v.getRootView().findViewById(R.id.buttonGT)&&myPrefGrandTotal.getInt("key", 0) == 1) {
+            SharedPreferences.Editor myPrefGTEditor = myPrefGrandTotal.edit();
+            myPrefGTEditor.remove("gtnumber");
+            myPrefGTEditor.remove("key");
+            myPrefGTEditor.commit();
+                //returnstringの小数点以下がないため、小数点除去処理でnull落ちする。
         }
         else
         {
             if(v==v.getRootView().findViewById(R.id.buttonGT)){
-                SharedPreferences myPrefGrandTotal=v.getContext().getSharedPreferences("grandtotal", Context.MODE_PRIVATE);
                 SharedPreferences.Editor myPrefGTEditor=myPrefGrandTotal.edit();
-                if(myPrefGrandTotal.getInt("key",0)==1){
-                    myPrefGTEditor.remove("gtnumber");
-                    myPrefGTEditor.remove("key");
-                    myPrefGTEditor.commit();
-                    returnString=mainTextViewString;//returnstringの小数点以下がないため、小数点除去処理でnull落ちする。
-                }
-                else {
-                    returnString=myPrefGrandTotal.getString("gtnumber", "0");
-                    myPrefGTEditor.putInt("key",1);
-                    myPrefGTEditor.commit();
-                }
+                returnString=myPrefGrandTotal.getString("gtnumber", "0");
+                myPrefGTEditor.putInt("key",1);
+                myPrefGTEditor.commit();
             }
             if(v==v.getRootView().findViewById(R.id.buttonPM)){
                 returnMainTextViewDouble=mainTextViewDouble*-1;
                 returnString=String.valueOf(returnMainTextViewDouble);
+
+                //GT2度押しフラグの解除
+                SharedPreferences.Editor myPrefGTEditor=myPrefGrandTotal.edit();
+                myPrefGTEditor.remove("key");
+                myPrefGTEditor.commit();
             }
             if(v==v.getRootView().findViewById(R.id.buttonroot)){
                 returnMainTextViewDouble=Math.sqrt(mainTextViewDouble);
                 returnString=String.valueOf(returnMainTextViewDouble);
+
+                //GT2度押しフラグの解除
+                SharedPreferences.Editor myPrefGTEditor=myPrefGrandTotal.edit();
+                myPrefGTEditor.remove("key");
+                myPrefGTEditor.commit();
             }
-            if(Double.parseDouble(returnString)%1==0){
+            if(returnString!="0" && Double.parseDouble(returnString)%1==0){
                 mainTextView.setText(returnString.substring(0,returnString.length()-2));
             }
             else

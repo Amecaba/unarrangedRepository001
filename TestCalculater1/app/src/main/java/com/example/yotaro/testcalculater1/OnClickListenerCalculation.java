@@ -73,6 +73,11 @@ public class OnClickListenerCalculation implements View.OnClickListener {
                 methodView.setText(methodList.get(i));
             }
         }
+        //GT2度押しフラグの解除
+        SharedPreferences myPrefGrandTotal = v.getContext().getSharedPreferences("grandtotal", Context.MODE_PRIVATE);
+        SharedPreferences.Editor myPrefGTEditor=myPrefGrandTotal.edit();
+        myPrefGTEditor.remove("key");
+        myPrefGTEditor.commit();
     }
 
 }

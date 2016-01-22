@@ -63,6 +63,7 @@ public class OnClickListenerEqual implements View.OnClickListener {
         double gtNumber=Double.parseDouble(myPrefGrandTotal.getString("gtnumber", "0"));
         double returnGtNumber=gtNumber+methodRun.applyFloat;
         myPrefGTEditor.putString("gtnumber",String.valueOf(returnGtNumber));
+        myPrefGTEditor.remove("key");
         myPrefGTEditor.commit();
     }
 }
