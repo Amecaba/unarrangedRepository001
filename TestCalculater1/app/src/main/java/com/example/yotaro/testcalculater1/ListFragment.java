@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -84,7 +86,19 @@ public class ListFragment extends Fragment {
             resutlTextViewList.add((TextView)returnView.getRootView().findViewById(resultTextViewIdList.get(i)));
         }
         for(int i=0;i<=6;i++){
-            resutlTextViewList.get(i).setText(myPrefList.getString("resultlist"+String.valueOf((cycler-i+7)%7),""));
+            resutlTextViewList.get(i).setText(myPrefList.getString("resultlist" + String.valueOf((cycler - i + 7) % 7), ""));
+        }
+
+        ArrayList<Integer> returnButtonIdList=new ArrayList<>();
+        returnButtonIdList.add(R.id.arrowbutton1);
+        returnButtonIdList.add(R.id.arrowbutton2);
+        ArrayList<ImageButton> returnButtonList=new ArrayList<>();
+        for(int i=0;i<=1;i++){
+            returnButtonList.add((ImageButton)returnView.getRootView().findViewById(returnButtonIdList.get(i)));
+        }
+        OnClickListenerReturns onClickListenerReturns=new OnClickListenerReturns();
+        for(ImageButton cyclerButton:returnButtonList){
+            cyclerButton.setOnClickListener(onClickListenerReturns);
         }
 
         return returnView;

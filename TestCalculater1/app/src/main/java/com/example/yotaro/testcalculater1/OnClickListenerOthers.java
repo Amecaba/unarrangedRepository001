@@ -20,14 +20,16 @@ public class OnClickListenerOthers implements View.OnClickListener {
         SharedPreferences myPrefGrandTotal = v.getContext().getSharedPreferences("grandtotal", Context.MODE_PRIVATE);
 
         if(v==v.getRootView().findViewById(R.id.buttonarrow)){
-            mainTextView.setText(mainTextViewString.substring(0,mainTextViewString.length()-1));
+            if(mainTextView.getText().toString().length()>1) {
+                mainTextView.setText(mainTextViewString.substring(0, mainTextViewString.length() - 1));
+            }
 
             //GT2度押しフラグの解除
             SharedPreferences.Editor myPrefGTEditor=myPrefGrandTotal.edit();
             myPrefGTEditor.remove("key");
             myPrefGTEditor.commit();
-
-        }else if(v==v.getRootView().findViewById(R.id.buttonGT)&&myPrefGrandTotal.getInt("key", 0) == 1) {
+        }
+        else if(v==v.getRootView().findViewById(R.id.buttonGT)&&myPrefGrandTotal.getInt("key", 0) == 1) {
             SharedPreferences.Editor myPrefGTEditor = myPrefGrandTotal.edit();
             myPrefGTEditor.remove("gtnumber");
             myPrefGTEditor.remove("key");
