@@ -89,6 +89,11 @@ public class ListFragment extends Fragment {
             resutlTextViewList.get(i).setText(myPrefList.getString("resultlist" + String.valueOf((cycler - i + 7) % 7), ""));
         }
 
+        ArrayList<String> resultList=new ArrayList<>();
+        for(int i;i<=6;i++){
+            resultList.add(resutlTextViewList.get(i).getText().toString());
+        }
+
         ArrayList<Integer> returnButtonIdList=new ArrayList<>();
         returnButtonIdList.add(R.id.arrowbutton1);
         returnButtonIdList.add(R.id.arrowbutton2);
@@ -96,7 +101,7 @@ public class ListFragment extends Fragment {
         for(int i=0;i<=1;i++){
             returnButtonList.add((ImageButton)returnView.getRootView().findViewById(returnButtonIdList.get(i)));
         }
-        OnClickListenerReturns onClickListenerReturns=new OnClickListenerReturns();
+        OnClickListenerReturns onClickListenerReturns=new OnClickListenerReturns(this.getActivity(),returnButtonList,resultList);
         for(ImageButton cyclerButton:returnButtonList){
             cyclerButton.setOnClickListener(onClickListenerReturns);
         }
