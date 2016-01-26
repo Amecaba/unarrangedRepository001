@@ -1,6 +1,7 @@
 package com.example.yotaro.testcalculater1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,9 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    //FragmentListからintentしてきた場合の変数そ定義
+    String sendResult="X";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,8 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
     }
 
     @Override
@@ -52,9 +58,18 @@ public class MainActivity extends ActionBarActivity
         // update the main content by replacing fragments
         FragmentManager fragmentManager=getSupportFragmentManager();
 
+        sendResult="X";
+
+        Intent intent=getIntent();
+        String sendResult=intent.getStringExtra("sendresult");
+        if(intent.getStringExtra("sendresult")!=null){
+            sendResult=intent.getStringExtra("sendresult");
+        }
+
         if(position==0) {
+            MainFragment premf=new MainFragment(sendResult);
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
+                    .replace(R.id.container, premf)
                     .commit();
         }
         if(position==1){
