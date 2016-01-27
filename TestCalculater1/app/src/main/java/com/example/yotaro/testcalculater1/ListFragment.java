@@ -94,14 +94,36 @@ public class ListFragment extends Fragment {
             resultList.add(resutlTextViewList.get(i).getText().toString());
         }
 
+        ArrayList<Integer> calculationFormulaIdList=new ArrayList<>();
+        calculationFormulaIdList.add(R.id.calculationformula1);
+        calculationFormulaIdList.add(R.id.calculationformula2);
+        calculationFormulaIdList.add(R.id.calculationformula3);
+        calculationFormulaIdList.add(R.id.calculationformula4);
+        calculationFormulaIdList.add(R.id.calculationformula5);
+        calculationFormulaIdList.add(R.id.calculationformula6);
+        calculationFormulaIdList.add(R.id.calculationformula7);
+        ArrayList<TextView> calclulationFormulaList=new ArrayList<>();
+        for(int i=0;i<=6;i++){
+            calclulationFormulaList.add((TextView)returnView.getRootView().findViewById(calculationFormulaIdList.get(i)));
+        }
+        ArrayList<String> calculationFormulaStringList=new ArrayList<>();
+        for(TextView b:calclulationFormulaList){
+            calculationFormulaStringList.add(b.getText().toString());
+        }
+
         ArrayList<Integer> returnButtonIdList=new ArrayList<>();
         returnButtonIdList.add(R.id.arrowbutton1);
         returnButtonIdList.add(R.id.arrowbutton2);
+        returnButtonIdList.add(R.id.arrowbutton3);
+        returnButtonIdList.add(R.id.arrowbutton4);
+        returnButtonIdList.add(R.id.arrowbutton5);
+        returnButtonIdList.add(R.id.arrowbutton6);
+        returnButtonIdList.add(R.id.arrowbutton7);
         ArrayList<ImageButton> returnButtonList=new ArrayList<>();
-        for(int i=0;i<=1;i++){
+        for(int i=0;i<=6;i++){
             returnButtonList.add((ImageButton)returnView.getRootView().findViewById(returnButtonIdList.get(i)));
         }
-        OnClickListenerReturns onClickListenerReturns=new OnClickListenerReturns(this.getActivity(),returnButtonList,resultList);
+        OnClickListenerReturns onClickListenerReturns=new OnClickListenerReturns(this.getActivity(),returnButtonList,resultList,calculationFormulaStringList);
         for(ImageButton cyclerButton:returnButtonList){
             cyclerButton.setOnClickListener(onClickListenerReturns);
         }

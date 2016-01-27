@@ -35,6 +35,7 @@ public class MainActivity extends ActionBarActivity
 
     //FragmentListからintentしてきた場合の変数そ定義
     String sendResult="X";
+    String sendCFResult="X";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +60,19 @@ public class MainActivity extends ActionBarActivity
         FragmentManager fragmentManager=getSupportFragmentManager();
 
         sendResult="X";
+        sendCFResult="X";
 
         Intent intent=getIntent();
-        String sendResult=intent.getStringExtra("sendresult");
+//        String sendResult=intent.getStringExtra("sendresult");
         if(intent.getStringExtra("sendresult")!=null){
             sendResult=intent.getStringExtra("sendresult");
         }
+        if(intent.getStringExtra("sendcf")!=null){
+            sendCFResult=intent.getStringExtra("sendcf");
+        }
 
         if(position==0) {
-            MainFragment premf=new MainFragment(sendResult);
+            MainFragment premf=new MainFragment(sendResult,sendCFResult);
             fragmentManager.beginTransaction()
                     .replace(R.id.container, premf)
                     .commit();

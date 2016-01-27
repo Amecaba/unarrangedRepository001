@@ -19,19 +19,23 @@ public class OnClickListenerReturns implements View.OnClickListener {
     Activity innerActivity;
     ArrayList<ImageButton> innerbuttonList;
     ArrayList<String> innerstringList;
-    public OnClickListenerReturns(Activity activity,ArrayList<ImageButton> buttonList,ArrayList<String> stringList){
+    ArrayList<String> innercfstringList;
+    public OnClickListenerReturns(Activity activity,ArrayList<ImageButton> buttonList,ArrayList<String> stringList,ArrayList<String> fsStrignList){
         innerActivity=activity;
         innerbuttonList=buttonList;
         innerstringList=stringList;
+        innercfstringList=fsStrignList;
     }
 
     @Override
     public void onClick(View v){
         Intent intent=new Intent(innerActivity,MainActivity.class);
-        for(int i=0;i<=1;i++){
+        for(int i=0;i<=6;i++){
             if(v==innerbuttonList.get(i)){
                 String innerString=innerstringList.get(i);
+                String innerCFString=innercfstringList.get(i);
                 intent.putExtra("sendresult",innerString);
+                intent.putExtra("sendcf",innerCFString);
             }
 
 

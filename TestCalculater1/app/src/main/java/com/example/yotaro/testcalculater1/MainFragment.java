@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class MainFragment extends Fragment {
     public String viewString;
     public String sendResult="Y";
+    public String sendCFResult="Y";
 
     private OnFragmentInteractionListener mListener;
 
@@ -40,8 +41,9 @@ public class MainFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public MainFragment(String send) {
+    public MainFragment(String send,String sendcf) {
         sendResult=send;
+        sendCFResult=sendcf;
     }
 
     @Override
@@ -62,7 +64,14 @@ public class MainFragment extends Fragment {
         int firstInt=0;
         if(sendResult!="X"){
             TextView mainTextView=(TextView)returnView.getRootView().findViewById(R.id.mainview);
-            mainTextView.setText(sendResult);}
+            TextView mainTextView2=(TextView)returnView.getRootView().findViewById(R.id.pastview);
+            mainTextView2.setText(sendResult);
+            mainTextView.setText(sendResult);
+        }
+        if(sendCFResult!="X"){
+            TextView formulaText=(TextView)returnView.getRootView().findViewById(R.id.pastcalc);
+            formulaText.setText(sendCFResult);
+        }
 
         ArrayList<Integer> buttonIdListNumber=new ArrayList<Integer>();
         buttonIdListNumber.add(R.id.button0);
