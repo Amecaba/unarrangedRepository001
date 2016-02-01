@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -34,7 +35,7 @@ public class OnClickListenerNumber implements View.OnClickListener{
 
         TextView mainTextView=(TextView)v.getRootView().findViewById(R.id.mainview);
         String mainTextViewString;
-        mainTextViewString=mainTextView.getText().toString();
+        mainTextViewString=mainTextView.getText().toString().replace(",","");
 
         SharedPreferences myCalcFlag=v.getContext().getSharedPreferences("myPrefCalcFlag",Context.MODE_PRIVATE);
         SharedPreferences.Editor mCFEditor=myCalcFlag.edit();
@@ -71,7 +72,9 @@ public class OnClickListenerNumber implements View.OnClickListener{
                     if(i<=9) {
                         inputNumber = i;
                         inputNumberString = Integer.toString(inputNumber);
-                        mainTextView.setText(mainTextViewString + inputNumberString);
+                        mainTextView.setText(inputNumberString);
+                        NumberFormat nFnum=NumberFormat.getNumberInstance();
+                        mainTextView.setText(nFnum.format(Double.parseDouble(mainTextViewString+inputNumberString)));
                     }
                     else if(i==11){
                         if(mainTextViewString.equals("")){
