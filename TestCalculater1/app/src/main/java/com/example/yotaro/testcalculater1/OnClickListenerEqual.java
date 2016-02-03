@@ -11,59 +11,37 @@ import java.io.InterruptedIOException;
  * Created by YOTARO on 2016/01/01.
  */
 public class OnClickListenerEqual implements View.OnClickListener {
-    float firstFloat;
 
     @Override
     public void onClick(View v){
 
-
         MethodRun methodRun=new MethodRun();
         methodRun.runMethod(v);
 
-        SharedPreferences backupFirstFloat=v.getContext().getSharedPreferences("myPrefBackupFirstFloat",Context.MODE_PRIVATE);
-        SharedPreferences.Editor mBFFEdiotor=backupFirstFloat.edit();
-        mBFFEdiotor.putFloat("mBFF",Float.parseFloat(methodRun.applyFLoatString));
-        mBFFEdiotor.commit();
+        //equal連打の場合の値を保持。
+        SharedPreferences mySharedPreference=v.getContext().getSharedPreferences("mySharedPreference",Context.MODE_PRIVATE);
+        SharedPreferences.Editor mySPEditor=mySharedPreference.edit();
+        mySPEditor.putString("firstDoubleToNext", methodRun.returnDoubleString);
+        mySPEditor.putString("secondDoubleToNext", String.valueOf(methodRun.secondDouble));//★ここDoubleに修正だね、たぶん
+        mySPEditor.putInt("methodToNext",methodRun.method);
+        mySPEditor.remove("firstDouble");
 
-//        SharedPreferences backupSecondFloat=v.getContext().getSharedPreferences("myPrefBackupSecondFloat",Context.MODE_PRIVATE);
-//        SharedPreferences.Editor mBSFEdiotor=backupSecondFloat.edit();
-        mBFFEdiotor.putFloat("mBSF",methodRun.secondFloat);
-        mBFFEdiotor.commit();
+        //mCFlag(calculationボタン群が押された直後かを判別するフラグを0に。
+        //mEFlag(equalボタンが押された直後か判別するフラグを1に（押された直後と設定）
+        mySPEditor.remove("mCFlag");
+        mySPEditor.putInt("mEFlag",1);
+        mySPEditor.putInt("mPCFlag",1);
 
-        SharedPreferences backupMethod=v.getContext().getSharedPreferences("myPrefBackupMethod",Context.MODE_PRIVATE);
-        SharedPreferences.Editor mBMEditor=backupMethod.edit();
-        mBMEditor.putInt("mBM",methodRun.method);
-        mBMEditor.commit();
+        //GTに計算結果を追加する処理。
+        double gTDouble=Double.parseDouble(mySharedPreference.getString("gTDouble", "0"));
+        double returnGTDouble=gTDouble+methodRun.returnDouble;
+        mySPEditor.putString("gtDouble", String.valueOf(returnGTDouble));
+        //GTの連続押し下げ判別フラグを0（連続でない）に。
+        mySPEditor.remove("gTFlag");
+        mySPEditor.commit();
 
-        SharedPreferences firstFloat=v.getContext().getSharedPreferences("myPref",Context.MODE_PRIVATE);
-        SharedPreferences.Editor myPrefEditor=firstFloat.edit();
-        myPrefEditor.remove("firstFloat");
-        myPrefEditor.commit();
-
-        SharedPreferences myCalcFlag=v.getContext().getSharedPreferences("myPrefCalcFlag",Context.MODE_PRIVATE);
-        SharedPreferences.Editor mCFEditor=myCalcFlag.edit();
-        mCFEditor.remove("mCFlag");
-        mCFEditor.commit();
-
+        //methodViewをクリア。計算結果のmainViewへの表示は、RunMethod側で持っている。
         TextView methodView=(TextView)v.getRootView().findViewById(R.id.methodview);
         methodView.setText("");
-
-        SharedPreferences myEqualFlag=v.getContext().getSharedPreferences("myPrefEqualFlag",Context.MODE_PRIVATE);
-        SharedPreferences.Editor myEFEditor=myEqualFlag.edit();
-        myEFEditor.putInt("mEFlag",1);
-        myEFEditor.commit();
-
-        SharedPreferences myPrefCompleteFlag=v.getContext().getSharedPreferences("myPrefCompleteFlag",Context.MODE_PRIVATE);
-        SharedPreferences.Editor mPCFEditor=myPrefCompleteFlag.edit();
-        mPCFEditor.putInt("mPCFlag", 1);
-        mPCFEditor.commit();
-
-        SharedPreferences myPrefGrandTotal=v.getContext().getSharedPreferences("grandtotal",Context.MODE_PRIVATE);
-        SharedPreferences.Editor myPrefGTEditor=myPrefGrandTotal.edit();
-        double gtNumber=Double.parseDouble(myPrefGrandTotal.getString("gtnumber", "0"));
-        double returnGtNumber=gtNumber+methodRun.applyFloat;
-        myPrefGTEditor.putString("gtnumber",String.valueOf(returnGtNumber));
-        myPrefGTEditor.remove("key");
-        myPrefGTEditor.commit();
     }
 }

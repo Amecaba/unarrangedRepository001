@@ -17,66 +17,66 @@ import java.util.ArrayList;
  * Created by YOTARO on 2015/12/20.
  */
 public class OnClickListenerNumber implements View.OnClickListener{
-    public String returnString;
-    String viewString;
-    int buttonNumber;
-    View innerView;
 
-    ArrayList<Integer> mmButtonIdList;
-    ArrayList<Button> mmButtonList;
+    ArrayList<Integer> internalButtonIdList;
+    ArrayList<Button> internalButtonList;
 
-    public OnClickListenerNumber(ArrayList<Integer> transButtonIdList, ArrayList<Button> trandButtonList){
-        mmButtonIdList=transButtonIdList;
-        mmButtonList=trandButtonList;
+    //コンストラクタ
+    public OnClickListenerNumber(ArrayList<Integer> receivedButtonIdList, ArrayList<Button> receivedButtonList){
+        internalButtonIdList=receivedButtonIdList;
+        internalButtonList=receivedButtonList;
     }
 
     @Override
     public void onClick(View v){
 
-        TextView mainTextView=(TextView)v.getRootView().findViewById(R.id.mainview);
+        //mCFlag(calculationボタン群が押された直後か判別するフラグを0に。
+        //mEFlag(equalボタンが押された直後か判別するフラグを0に。
+        SharedPreferences mySharedPreference = v.getContext().getSharedPreferences("mySharedPreference",Context.MODE_PRIVATE);
+        SharedPreferences.Editor mySPEditor=mySharedPreference.edit();
+        mySPEditor.remove("mCFlag");
+        mySPEditor.remove("mEFlag");
+        mySPEditor.remove("gTFlag");
+        mySPEditor.commit();
+
         String mainTextViewString;
+        TextView mainTextView=(TextView)v.getRootView().findViewById(R.id.mainview);
         mainTextViewString=mainTextView.getText().toString().replace(",","");
 
-        SharedPreferences myCalcFlag=v.getContext().getSharedPreferences("myPrefCalcFlag",Context.MODE_PRIVATE);
-        SharedPreferences.Editor mCFEditor=myCalcFlag.edit();
-        mCFEditor.remove("mCFlag");
-        mCFEditor.commit();
-
-        SharedPreferences myEqualFlag=v.getContext().getSharedPreferences("myPrefEqualFlag",Context.MODE_PRIVATE);
-        SharedPreferences.Editor myEFEditor=myEqualFlag.edit();
-        myEFEditor.remove("mEFlag");
-        myEFEditor.commit();
-
+        //桁数を12桁で止める。（カンマを.replaceで除いた後で12桁判定
+        //✖11桁までしか入らず？？
         if(mainTextViewString.length()<=12) {
 
             int inputNumber;
             String inputNumberString;
             int mPCFlag;
 
-            SharedPreferences myPrefCompleteFlag=v.getContext().getSharedPreferences("myPrefCompleteFlag",Context.MODE_PRIVATE);
-            SharedPreferences.Editor mPCFEditor=myPrefCompleteFlag.edit();
-            mPCFlag=myPrefCompleteFlag.getInt("mPCFlag", 0);
-
+            mPCFlag=mySharedPreference.getInt("mPCFlag", 0);
+            //mPCFlagが1（つまりequalやcalculation押された直後）は、Viewの値を削除する。フラグは0へ。
             if(mPCFlag==1){
                 mainTextViewString="";
-                mPCFEditor.putInt("mPCFlag",0);
-                mPCFEditor.commit();
+                SharedPreferences.Editor mSPEditor=mySharedPreference.edit();
+                mSPEditor.putInt("mPCFlag", 0);
+                mSPEditor.commit();
             }
 
 
             for (int i = 0; i < 12; i++) {
-                if (v == mmButtonList.get(i)) {
+                if (v == internalButtonList.get(i)) {
+                    //mainViewが0の場合、頭に０がつかないように分岐
                     if(mainTextViewString.equals("0")){
                         mainTextViewString="";
                     }
+                    //数字キー
                     if(i<=9) {
                         inputNumber = i;
                         inputNumberString = Integer.toString(inputNumber);
-                        mainTextView.setText(inputNumberString);
+                        //カンマ付加処理。
                         NumberFormat nFnum=NumberFormat.getNumberInstance();
                         mainTextView.setText(nFnum.format(Double.parseDouble(mainTextViewString+inputNumberString)));
                     }
                     else if(i==11){
+                        //小数点押されたときの処理
                         if(mainTextViewString.equals("")){
                             mainTextView.setText("0.");
                         }
@@ -86,19 +86,15 @@ public class OnClickListenerNumber implements View.OnClickListener{
                         }
                     }
                     else{
+                        //000押されたときの処理
                         if(mainTextViewString.equals("")){
                             mainTextView.setText("0");
                         }
-                        else{mainTextView.setText(mainTextViewString+"000");
+                        else{mainTextView.setText(mainTextViewString+"000");//★ここにもカンマ処理いるよね・・。
                         }
                     }
                 }
             }
         }
-        //GT2度押しフラグの解除
-        SharedPreferences myPrefGrandTotal = v.getContext().getSharedPreferences("grandtotal", Context.MODE_PRIVATE);
-        SharedPreferences.Editor myPrefGTEditor=myPrefGrandTotal.edit();
-        myPrefGTEditor.remove("key");
-        myPrefGTEditor.commit();
     }
 }
