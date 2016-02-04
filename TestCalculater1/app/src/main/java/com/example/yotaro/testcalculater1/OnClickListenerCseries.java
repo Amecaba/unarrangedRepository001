@@ -11,24 +11,22 @@ import java.util.ArrayList;
  * Created by YOTARO on 2016/01/09.
  */
 public class OnClickListenerCseries implements View.OnClickListener {
-    SharedPreferences firstInt;
-    ArrayList<Button> mmmmButtonList;
+    ArrayList<Button> internalButtonList;
 
-    public OnClickListenerCseries(ArrayList<Button> trandButtonList){
-        mmmmButtonList=trandButtonList;
+    public OnClickListenerCseries(ArrayList<Button> receivedButtonList){
+        internalButtonList=receivedButtonList;
     }
 
     @Override
     public void onClick(View v){
-        MethodClear methodClear=new MethodClear(mmmmButtonList);
+        MethodClear methodClear=new MethodClear(internalButtonList);
         methodClear.clearMethod(v);
 
         //GT2度押しフラグの解除
-        SharedPreferences myPrefGrandTotal = v.getContext().getSharedPreferences("grandtotal", Context.MODE_PRIVATE);
-        SharedPreferences.Editor myPrefGTEditor=myPrefGrandTotal.edit();
-        myPrefGTEditor.remove("key");
-        myPrefGTEditor.commit();
-
+        SharedPreferences mySharedPreference = v.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
+        SharedPreferences.Editor mSPEditor=mySharedPreference.edit();
+        mSPEditor.remove("gTFlag");
+        mSPEditor.commit();
     }
 
 }
