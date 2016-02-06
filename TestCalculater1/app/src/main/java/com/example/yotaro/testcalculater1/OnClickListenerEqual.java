@@ -33,9 +33,9 @@ public class OnClickListenerEqual implements View.OnClickListener {
         mySPEditor.putInt("mPCFlag",1);
 
         //GTに計算結果を追加する処理。
-        double gTDouble=Double.parseDouble(mySharedPreference.getString("gTDouble", "0"));
+        double gTDouble=Double.parseDouble(mySharedPreference.getString("gTDouble", "0").replace(",",""));
         double returnGTDouble=gTDouble+methodRun.returnDouble;
-        mySPEditor.putString("gtDouble", String.valueOf(returnGTDouble));
+        mySPEditor.putString("gTDouble", String.valueOf(returnGTDouble));
         //GTの連続押し下げ判別フラグを0（連続でない）に。
         mySPEditor.remove("gTFlag");
         mySPEditor.commit();

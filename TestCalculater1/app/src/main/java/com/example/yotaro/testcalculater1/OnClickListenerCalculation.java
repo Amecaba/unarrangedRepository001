@@ -39,7 +39,7 @@ public class OnClickListenerCalculation implements View.OnClickListener {
                 //SharedPreferencesのputがDoubleを扱えないので、Stringのままで処理
                 //あと2行目でカンマを除く処理。
                 if(mySharedPreference.getString("firstDouble", "default")=="default"){
-                    String firstDouble=mainTextViewString.replaceFirst(",","");
+                    String firstDouble=mainTextViewString.replace(",","");
                     mySPEditor.putString("firstDouble", firstDouble);
                     mySPEditor.commit();
                 }

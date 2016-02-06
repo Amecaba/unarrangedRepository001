@@ -44,9 +44,9 @@ public class MethodRun {
 
         //必要な変数をSharedPreferenceから取得する。equal連打の場合とそれ以外で分岐。mEFlag==0でそれ以外
         if(mySharedPreference.getInt("mEFlag",0)==0){
-            firstDouble=Double.parseDouble(mySharedPreference.getString("firstDouble", "0"));
+            firstDouble=Double.parseDouble(mySharedPreference.getString("firstDouble", "0").replace(",",""));
             method=mySharedPreference.getInt("method", 0);
-            secondDouble=Double.parseDouble(mainTextView.getText().toString());
+            secondDouble=Double.parseDouble(mainTextView.getText().toString().replace(",",""));
         }
         else{
             firstDouble=Double.parseDouble(mySharedPreference.getString("firstDoubleToNext", "0").replace(",",""));
@@ -81,7 +81,7 @@ public class MethodRun {
         mainTextView.setText(returnDoubleString);
 
         //リスト用のオブジェクトをインスタンス化（コンストラクタで必要な値をSharedPreferenceに保持）
-        MethodAddList methodAddList=new MethodAddList(v,firstDouble,secondDouble,returnDouble,method);
+        new MethodAddList(v,firstDouble,secondDouble,returnDouble,method);
     }
 
 }

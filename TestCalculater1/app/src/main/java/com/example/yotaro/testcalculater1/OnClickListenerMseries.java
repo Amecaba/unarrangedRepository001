@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -13,55 +14,46 @@ import java.util.ArrayList;
  */
 public class OnClickListenerMseries implements View.OnClickListener {
     SharedPreferences myPrefMemory;
-    TextView mainTextView;
-    ArrayList<Button> buttonIdList;
+    ArrayList<Button> internalButtonIdList;
 
-    public OnClickListenerMseries(ArrayList<Button> trandButtonIdList){
-        buttonIdList=trandButtonIdList;
+    public OnClickListenerMseries(ArrayList<Button> receivedButtonIdList){
+        internalButtonIdList=receivedButtonIdList;
     }
 
     @Override
     public void onClick(View v){
-        float returnMemoryFloat=0;
-        mainTextView=(TextView)v.getRootView().findViewById(R.id.mainview);
-        float mTVFloat=Float.parseFloat(mainTextView.getText().toString());
-        myPrefMemory=v.getContext().getSharedPreferences("memory",Context.MODE_PRIVATE);
-        SharedPreferences.Editor myPrefMemoryEditor=myPrefMemory.edit();
-        float memoryFloat=myPrefMemory.getFloat("memory",0);
-        String memoryFloatApply;
+        double returnMemoryDouble=0;
+        TextView mainTextView=(TextView)v.getRootView().findViewById(R.id.mainview);
+        double mainTextViewDouble=Double.parseDouble(mainTextView.getText().toString().replace(",",""));
+        SharedPreferences mySharedPreference=v.getContext().getSharedPreferences("mySharedPreference",Context.MODE_PRIVATE);
+        SharedPreferences.Editor mySPEditor=mySharedPreference.edit();
+        double memoryDouble=Double.parseDouble(mySharedPreference.getString("memory","0"));
+        String memoryDoubleApply;
 
         for(int i=0;i<=3;i++){
-            if(v==buttonIdList.get(i)){
+            if(v==internalButtonIdList.get(i)){
                 if(i<=2) {
                     if (i == 0) {
-                        myPrefMemoryEditor.putFloat("memory",memoryFloat+mTVFloat);
-                        myPrefMemoryEditor.commit();
+                        mySPEditor.putString("memory",String.valueOf(memoryDouble+mainTextViewDouble));
                     } else if (i == 1) {
-                        myPrefMemoryEditor.putFloat("memory",memoryFloat-mTVFloat);
-                        myPrefMemoryEditor.commit();
+                        mySPEditor.putString("memory",String.valueOf(memoryDouble-mainTextViewDouble));
                     } else if (i == 2) {
-                        myPrefMemoryEditor.remove("memory");
-                        myPrefMemoryEditor.commit();
+                        mySPEditor.remove("memory");
                     }
+                    mySPEditor.commit();
                 }
                 else if(i==3){
-                    if(memoryFloat%1==0){
-                        memoryFloatApply=String.valueOf(memoryFloat).substring(0,String.valueOf(memoryFloat).length()-2);
-                    }
-                    else{
-                        memoryFloatApply=String.valueOf(memoryFloat);
-                    }
-                    mainTextView.setText(memoryFloatApply);
+                    NumberFormat nFmt=NumberFormat.getNumberInstance();
+                    memoryDoubleApply=nFmt.format(Double.parseDouble(mySharedPreference.getString("memory","0")));
+                    mainTextView.setText(memoryDoubleApply);
                 }
 
             }
         }
 
         //GT2度押しフラグの解除
-        SharedPreferences myPrefGrandTotal = v.getContext().getSharedPreferences("grandtotal", Context.MODE_PRIVATE);
-        SharedPreferences.Editor myPrefGTEditor=myPrefGrandTotal.edit();
-        myPrefGTEditor.remove("key");
-        myPrefGTEditor.commit();
+        mySPEditor.remove("gTFlag");
+        mySPEditor.commit();
     }
 
 }
