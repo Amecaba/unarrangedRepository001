@@ -2,13 +2,9 @@ package com.example.yotaro.testcalculater1;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.hardware.ConsumerIrManager;
-import android.nfc.tech.TagTechnology;
 import android.view.View;
 import android.widget.TextView;
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
 
 
 /**
@@ -76,9 +72,7 @@ public class MethodRun {
 //            applyFLoatString=applyFloatStringBC;
 //        }
 
-        NumberFormat nFmt=NumberFormat.getNumberInstance();
-        returnDoubleString=nFmt.format(returnDouble);
-        mainTextView.setText(returnDoubleString);
+        mainTextView.setText(Methods.combertDobleToString(returnDouble));
 
         //リスト用のオブジェクトをインスタンス化（コンストラクタで必要な値をSharedPreferenceに保持）
         new MethodAddList(v,firstDouble,secondDouble,returnDouble,method);

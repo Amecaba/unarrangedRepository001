@@ -20,12 +20,11 @@ public class OnClickListenerOthers implements View.OnClickListener {
         double returnMainTextViewDouble;
         SharedPreferences mySharedPreference = v.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
         SharedPreferences.Editor mySPEditor=mySharedPreference.edit();
-        NumberFormat nFmt= NumberFormat.getNumberInstance();
 
         //めんどくさいので、buttonIdList形成しないで、if文で直接R.idを参照
         if(v==v.getRootView().findViewById(R.id.buttonarrow)){
             if(mainTextView.getText().toString().length()>1) {
-                mainTextView.setText(nFmt.format(Double.parseDouble(mainTextViewString.substring(0, mainTextViewString.length() - 1))));
+                mainTextView.setText(Methods.combertDobleToString(Double.parseDouble(mainTextViewString.substring(0, mainTextViewString.length() - 1))));
             }
 
             //GT2度押しフラグの解除
@@ -59,7 +58,7 @@ public class OnClickListenerOthers implements View.OnClickListener {
             }
 
             mySPEditor.commit();
-            mainTextView.setText(nFmt.format(Double.parseDouble(returnString)));
+            mainTextView.setText(Methods.combertDobleToString(Double.parseDouble(returnString)));
 
         }
 

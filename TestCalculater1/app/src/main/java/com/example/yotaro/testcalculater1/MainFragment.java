@@ -1,6 +1,8 @@
 package com.example.yotaro.testcalculater1;
 
 import android.app.Activity;
+import android.graphics.Typeface;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -61,9 +64,12 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         View returnView=inflater.inflate(R.layout.fragment_main2,container,false);
 
+        TextView mainTextView=(TextView)returnView.getRootView().findViewById(R.id.mainview);
+        mainTextView.setTypeface(Typeface.createFromAsset(returnView.getContext().getAssets(), "meiryo.ttc"),Typeface.BOLD);
+
         int firstInt=0;
         if(sendResult!="X"){
-            TextView mainTextView=(TextView)returnView.getRootView().findViewById(R.id.mainview);
+            //TextView mainTextView=(TextView)returnView.getRootView().findViewById(R.id.mainview);
             TextView mainTextView2=(TextView)returnView.getRootView().findViewById(R.id.pastview);
             mainTextView2.setText(sendResult);
             mainTextView.setText(sendResult);
@@ -87,9 +93,9 @@ public class MainFragment extends Fragment {
         buttonIdListNumber.add(R.id.button000);
         buttonIdListNumber.add(R.id.buttondot);
 
-        ArrayList<Button> buttonListNumber=new ArrayList<Button>();
+        ArrayList<ImageButton> buttonListNumber=new ArrayList<>();
         for(int i=0;i<12;i++){
-            buttonListNumber.add((Button) returnView.findViewById(buttonIdListNumber.get(i)));
+            buttonListNumber.add((ImageButton) returnView.findViewById(buttonIdListNumber.get(i)));
         }
 
         OnClickListenerNumber onClickListenerNumber=new OnClickListenerNumber(buttonIdListNumber,buttonListNumber);
@@ -98,25 +104,26 @@ public class MainFragment extends Fragment {
             buttonListNumber.get(i).setOnClickListener(onClickListenerNumber);
         }
 
+        //ここからcalculationボタン群
         ArrayList<Integer> buttonIdListCalculation=new ArrayList<Integer>();
         buttonIdListCalculation.add(R.id.buttonplus);
         buttonIdListCalculation.add(R.id.buttonminus);
         buttonIdListCalculation.add(R.id.buttontimes);
         buttonIdListCalculation.add(R.id.buttondevide);
-        buttonIdListCalculation.add(R.id.buttonequal);
+//        buttonIdListCalculation.add(R.id.buttonequal);
 
-        ArrayList<Button> buttonListCalculation=new ArrayList<Button>();
-        for(int i=0;i<=4;i++){
-            buttonListCalculation.add((Button) returnView.findViewById(buttonIdListCalculation.get(i)));
+        ArrayList<ImageButton> buttonListCalculation=new ArrayList<>();
+        for(int i=0;i<=3;i++){
+            buttonListCalculation.add((ImageButton) returnView.findViewById(buttonIdListCalculation.get(i)));
         }
 
         OnClickListenerCalculation onClickListenerCalculation=new OnClickListenerCalculation(buttonListCalculation);
 
-        for(int i=0;i<=4;i++){
+        for(int i=0;i<=3;i++){
             buttonListCalculation.get(i).setOnClickListener(onClickListenerCalculation);
         }
 
-        Button equalButton=(Button)returnView.findViewById(R.id.buttonequal);
+        ImageButton equalButton=(ImageButton)returnView.findViewById(R.id.buttonequal);
         OnClickListenerEqual onClickListenerEqual=new OnClickListenerEqual();
         equalButton.setOnClickListener(onClickListenerEqual);
 
@@ -124,12 +131,12 @@ public class MainFragment extends Fragment {
         buttonIdListCseries.add(R.id.buttonCA);
         buttonIdListCseries.add(R.id.buttonC);
         buttonIdListCseries.add(R.id.buttonCE);
-        ArrayList<Button> buttonListCseries=new ArrayList<Button>();
+        ArrayList<ImageButton> buttonListCseries=new ArrayList<>();
         for(int i:buttonIdListCseries){
-            buttonListCseries.add((Button) returnView.getRootView().findViewById(i));
+            buttonListCseries.add((ImageButton) returnView.getRootView().findViewById(i));
         }
         OnClickListenerCseries onClickListenerCseries=new OnClickListenerCseries(buttonListCseries);
-        for(Button ibutton:buttonListCseries){
+        for(ImageButton ibutton:buttonListCseries){
             ibutton.setOnClickListener(onClickListenerCseries);
         }
 
@@ -138,13 +145,13 @@ public class MainFragment extends Fragment {
         buttonIdListMseries.add(R.id.buttonMM);
         buttonIdListMseries.add(R.id.buttonCM);
         buttonIdListMseries.add(R.id.buttonRM);
-        ArrayList<Button> buttonListMseries=new ArrayList<Button>();
+        ArrayList<ImageButton> buttonListMseries=new ArrayList<>();
         for(int i=0;i<=3;i++)
         {
-            buttonListMseries.add((Button)returnView.getRootView().findViewById(buttonIdListMseries.get(i)));
+            buttonListMseries.add((ImageButton)returnView.getRootView().findViewById(buttonIdListMseries.get(i)));
         }
         OnClickListenerMseries onClickListenerMseries=new OnClickListenerMseries(buttonListMseries);
-        for(Button i:buttonListMseries){
+        for(ImageButton i:buttonListMseries){
             i.setOnClickListener(onClickListenerMseries);
         }
 

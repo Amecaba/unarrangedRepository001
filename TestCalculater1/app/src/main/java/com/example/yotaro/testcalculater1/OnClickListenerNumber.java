@@ -3,14 +3,9 @@ package com.example.yotaro.testcalculater1;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -19,10 +14,10 @@ import java.util.ArrayList;
 public class OnClickListenerNumber implements View.OnClickListener{
 
     ArrayList<Integer> internalButtonIdList;
-    ArrayList<Button> internalButtonList;
+    ArrayList<ImageButton> internalButtonList;
 
     //コンストラクタ
-    public OnClickListenerNumber(ArrayList<Integer> receivedButtonIdList, ArrayList<Button> receivedButtonList){
+    public OnClickListenerNumber(ArrayList<Integer> receivedButtonIdList, ArrayList<ImageButton> receivedButtonList){
         internalButtonIdList=receivedButtonIdList;
         internalButtonList=receivedButtonList;
     }
@@ -48,6 +43,7 @@ public class OnClickListenerNumber implements View.OnClickListener{
         if(mainTextViewString.length()<=12) {
 
             int inputNumber;
+            double inputDouble;
             String inputNumberString;
             int mPCFlag;
 
@@ -72,13 +68,16 @@ public class OnClickListenerNumber implements View.OnClickListener{
                         inputNumber = i;
                         inputNumberString = Integer.toString(inputNumber);
                         //カンマ付加処理。
-                        NumberFormat nFnum=NumberFormat.getNumberInstance();
-                        mainTextView.setText(nFnum.format(Double.parseDouble(mainTextViewString+inputNumberString)));
+                        inputDouble=Double.parseDouble(mainTextViewString+inputNumberString);
+                        mainTextView.setText(Methods.combertDobleToString(inputDouble));
                     }
                     else if(i==11){
                         //小数点押されたときの処理
                         if(mainTextViewString.equals("")){
                             mainTextView.setText("0.");
+                        }
+                        else if(mainTextViewString.indexOf(".")!=-1){
+                            mainTextView.setText(mainTextViewString);
                         }
                         else
                         {

@@ -3,10 +3,8 @@ package com.example.yotaro.testcalculater1;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -14,9 +12,9 @@ import java.util.ArrayList;
  */
 public class OnClickListenerMseries implements View.OnClickListener {
     SharedPreferences myPrefMemory;
-    ArrayList<Button> internalButtonIdList;
+    ArrayList<ImageButton> internalButtonIdList;
 
-    public OnClickListenerMseries(ArrayList<Button> receivedButtonIdList){
+    public OnClickListenerMseries(ArrayList<ImageButton> receivedButtonIdList){
         internalButtonIdList=receivedButtonIdList;
     }
 
@@ -43,9 +41,7 @@ public class OnClickListenerMseries implements View.OnClickListener {
                     mySPEditor.commit();
                 }
                 else if(i==3){
-                    NumberFormat nFmt=NumberFormat.getNumberInstance();
-                    memoryDoubleApply=nFmt.format(Double.parseDouble(mySharedPreference.getString("memory","0")));
-                    mainTextView.setText(memoryDoubleApply);
+                    mainTextView.setText(Methods.combertDobleToString(Double.parseDouble(mySharedPreference.getString("memory","0"))));
                 }
 
             }

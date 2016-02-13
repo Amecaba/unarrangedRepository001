@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,9 +16,9 @@ public class MethodClear {
     SharedPreferences firstInt;
     SharedPreferences method;
     SharedPreferences myPrefCompleteFlag;
-    ArrayList<Button> internalButtonList;
+    ArrayList<ImageButton> internalButtonList;
 
-    public MethodClear(ArrayList<Button> receivedButtonList){
+    public MethodClear(ArrayList<ImageButton> receivedButtonList){
         internalButtonList=receivedButtonList;
     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
@@ -11,9 +12,9 @@ import java.util.ArrayList;
  * Created by YOTARO on 2016/01/09.
  */
 public class OnClickListenerCseries implements View.OnClickListener {
-    ArrayList<Button> internalButtonList;
+    ArrayList<ImageButton> internalButtonList;
 
-    public OnClickListenerCseries(ArrayList<Button> receivedButtonList){
+    public OnClickListenerCseries(ArrayList<ImageButton> receivedButtonList){
         internalButtonList=receivedButtonList;
     }
 

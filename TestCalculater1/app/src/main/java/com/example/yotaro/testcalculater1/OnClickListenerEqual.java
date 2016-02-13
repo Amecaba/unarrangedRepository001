@@ -21,7 +21,7 @@ public class OnClickListenerEqual implements View.OnClickListener {
         //equal連打の場合の値を保持。
         SharedPreferences mySharedPreference=v.getContext().getSharedPreferences("mySharedPreference",Context.MODE_PRIVATE);
         SharedPreferences.Editor mySPEditor=mySharedPreference.edit();
-        mySPEditor.putString("firstDoubleToNext", methodRun.returnDoubleString);
+        mySPEditor.putString("firstDoubleToNext", String.valueOf(methodRun.returnDouble));
         mySPEditor.putString("secondDoubleToNext", String.valueOf(methodRun.secondDouble));//★ここDoubleに修正だね、たぶん
         mySPEditor.putInt("methodToNext",methodRun.method);
         mySPEditor.remove("firstDouble");

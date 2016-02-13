@@ -4,10 +4,10 @@
     <item
         android:state_pressed="true"
         android:state_enabled="true"
-        android:drawable="@drawable/giftestpresspng"/>
-
+        android:drawable="@drawable/button0"
+        />
     <item
         android:state_enabled="true"
-        android:drawable="@drawable/giftest"
+        android:drawable="@drawable/button0"
         />
 </selector>

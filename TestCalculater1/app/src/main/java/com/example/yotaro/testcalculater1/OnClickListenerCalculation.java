@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -13,10 +13,11 @@ import java.util.ArrayList;
  * Created by YOTARO on 2015/12/31.
  */
 public class OnClickListenerCalculation implements View.OnClickListener {
-    ArrayList<Button> internalButtonList;
+    ArrayList<ImageButton> internalButtonList;
     ArrayList<String> internalmethodList=new ArrayList<>();
 
-    public OnClickListenerCalculation(ArrayList<Button> receivedButtonList){
+    public OnClickListenerCalculation(ArrayList<ImageButton> receivedButtonList){
+        //これ受け取らなくてもここで形成すればいいんじゃない？
         internalButtonList=receivedButtonList;
 
         internalmethodList.add("+");
@@ -34,7 +35,7 @@ public class OnClickListenerCalculation implements View.OnClickListener {
         String mainTextViewString=mainTextView.getText().toString();
         TextView methodView=(TextView)v.getRootView().findViewById(R.id.methodview);
 
-        for(int i=0;i<=4;i++){
+        for(int i=0;i<=3;i++){
             if(v==internalButtonList.get(i)){
                 //SharedPreferencesのputがDoubleを扱えないので、Stringのままで処理
                 //あと2行目でカンマを除く処理。
