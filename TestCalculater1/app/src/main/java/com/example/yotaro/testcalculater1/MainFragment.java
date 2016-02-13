@@ -160,12 +160,12 @@ public class MainFragment extends Fragment {
         othersButtonIdList.add(R.id.buttonPM);
         othersButtonIdList.add(R.id.buttonroot);
         othersButtonIdList.add(R.id.buttonarrow);
-        ArrayList<Button> othersButtonList=new ArrayList<>();
+        ArrayList<ImageButton> othersButtonList=new ArrayList<>();
         for(int i=0;i<=3;i++){
-            othersButtonList.add((Button)returnView.getRootView().findViewById(othersButtonIdList.get(i)));
+            othersButtonList.add((ImageButton)returnView.getRootView().findViewById(othersButtonIdList.get(i)));
         }
         OnClickListenerOthers onClickListenerOthers=new OnClickListenerOthers();
-        for(Button cercle:othersButtonList){
+        for(ImageButton cercle:othersButtonList){
             cercle.setOnClickListener(onClickListenerOthers);
         }
 
