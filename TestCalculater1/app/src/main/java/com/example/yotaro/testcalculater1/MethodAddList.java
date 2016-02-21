@@ -11,15 +11,16 @@ import java.util.ArrayList;
  * Created by YOTARO on 2016/01/16.
  */
 public class MethodAddList {
-    SharedPreferences myPrefList;
+    SharedPreferences mySharedPreference;
     String insertString;
-    String firstdoubleString;
-    String seconddoubleString;
-    String applydoubleString;
+    String firstDoubleString;
+    String secondDdoubleString;
+    String applyDoubleString;
+    String methodTypeString;
 
-    public MethodAddList(View v,double firstdouble,double seconddouble,double applydouble,int method){
-        myPrefList=v.getContext().getSharedPreferences("list", Context.MODE_PRIVATE);
-        SharedPreferences.Editor myPrefListEditor=myPrefList.edit();
+    public MethodAddList(View v,double receivedFirstDouble,double receivedSecondDouble,double receivedApplyDouble,int method){
+        mySharedPreference=v.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
+        SharedPreferences.Editor mySPEditor=mySharedPreference.edit();
 
         ArrayList<String> methodTypeArray=new ArrayList<>();
         methodTypeArray.add("+");
@@ -27,33 +28,39 @@ public class MethodAddList {
         methodTypeArray.add("×");
         methodTypeArray.add("÷");
 
-        if(firstdouble%1==0){
-            firstdoubleString=String.valueOf(firstdouble).substring(0,String.valueOf(firstdouble).length()-2);
-        }
-        else
-        {
-            firstdoubleString=String.valueOf(firstdouble);
-        }
+        //ここからの0落とし処理を、Mehotdsの関数に修正（2016/2/14）
+//        if(receivedFirstDouble%1==0){
+//            firstDoubleString=String.valueOf(receivedFirstDouble).substring(0,String.valueOf(firstdouble).length()-2);
+//        }
+//        else
+//        {
+//            firstdoubleString=String.valueOf(firstdouble);
+//        }
+//
+//        if(seconddouble%1==0){
+//            seconddoubleString=String.valueOf(seconddouble).substring(0,String.valueOf(seconddouble).length()-2);
+//        }
+//        else
+//        {
+//            seconddoubleString=String.valueOf(seconddouble);
+//        }
 
-        if(seconddouble%1==0){
-            seconddoubleString=String.valueOf(seconddouble).substring(0,String.valueOf(seconddouble).length()-2);
-        }
-        else
-        {
-            seconddoubleString=String.valueOf(seconddouble);
-        }
-        String methodTypeString=methodTypeArray.get(method);
-        if(applydouble%1==0){
-            applydoubleString=String.valueOf(applydouble).substring(0,String.valueOf(applydouble).length()-2);
-        }
-        else
-        {
-            applydoubleString=String.valueOf(applydouble);
-        }
+//        if(applydouble%1==0){
+//            applydoubleString=String.valueOf(applydouble).substring(0,String.valueOf(applydouble).length()-2);
+//        }
+//        else
+//        {
+//            applydoubleString=String.valueOf(applydouble);
+//        }
 
-        insertString=firstdoubleString+methodTypeString+seconddoubleString;
+        firstDoubleString=Methods.combertDobleToString(receivedFirstDouble);
+        secondDdoubleString=Methods.combertDobleToString(receivedSecondDouble);
+        applyDoubleString=Methods.combertDobleToString(receivedApplyDouble);
+        methodTypeString=methodTypeArray.get(method);
 
-        int cycler=myPrefList.getInt("flag",0);
+        insertString=firstDoubleString+methodTypeString+secondDdoubleString;
+
+        int cycler=mySharedPreference.getInt("listFlag",0);
         int returnCycler;
         if(cycler<6){
             returnCycler=cycler+1;
@@ -61,17 +68,17 @@ public class MethodAddList {
         else{
             returnCycler=0;
         }
-        myPrefListEditor.putInt("flag",returnCycler);
+        mySPEditor.putInt("listFlag",returnCycler);
 
-        String prefNameCalc="calclist"+String.valueOf(returnCycler);
-        String prefNameResult="resultlist"+String.valueOf(returnCycler);
-        myPrefListEditor.putString(prefNameCalc,insertString);
-        myPrefListEditor.putString(prefNameResult, applydoubleString);
-        myPrefListEditor.commit();
+        String calclistName="calclist"+String.valueOf(returnCycler);
+        String resultlistName="resultlist"+String.valueOf(returnCycler);
+        mySPEditor.putString(calclistName,insertString);
+        mySPEditor.putString(resultlistName, applyDoubleString);
+        mySPEditor.commit();
 
         TextView pastCalc=(TextView)v.getRootView().findViewById(R.id.pastcalc);
         TextView pastView=(TextView)v.getRootView().findViewById(R.id.pastview);
         pastCalc.setText(insertString);
-        pastView.setText(applydoubleString);
+        pastView.setText(applyDoubleString);
     }
 }

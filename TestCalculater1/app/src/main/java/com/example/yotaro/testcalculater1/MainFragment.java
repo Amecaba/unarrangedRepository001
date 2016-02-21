@@ -1,6 +1,8 @@
 package com.example.yotaro.testcalculater1;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.media.Image;
 import android.net.Uri;
@@ -27,57 +29,46 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class MainFragment extends Fragment {
-    public String viewString;
-    public String sendResult="Y";
-    public String sendCFResult="Y";
-
     private OnFragmentInteractionListener mListener;
 
-
-    public MainFragment newInstance(String send) {
-//        sendResult=send;
-        MainFragment fragment = new MainFragment();
-        return fragment;
-    }
 
     public MainFragment() {
         // Required empty public constructor
     }
 
-    public MainFragment(String send,String sendcf) {
-        sendResult=send;
-        sendCFResult=sendcf;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View returnView=inflater.inflate(R.layout.fragment_main2,container,false);
 
         TextView mainTextView=(TextView)returnView.getRootView().findViewById(R.id.mainview);
         mainTextView.setTypeface(Typeface.createFromAsset(returnView.getContext().getAssets(), "meiryo.ttc"),Typeface.BOLD);
 
-        int firstInt=0;
-        if(sendResult!="X"){
-            //TextView mainTextView=(TextView)returnView.getRootView().findViewById(R.id.mainview);
-            TextView mainTextView2=(TextView)returnView.getRootView().findViewById(R.id.pastview);
-            mainTextView2.setText(sendResult);
-            mainTextView.setText(sendResult);
+        TextView pastCalcTextView=(TextView)returnView.findViewById(R.id.pastcalc);
+        pastCalcTextView.setTypeface(Typeface.createFromAsset(returnView.getContext().getAssets(),"meiryo.ttc"),Typeface.BOLD);
+
+        TextView pastTextView=(TextView)returnView.getRootView().findViewById(R.id.pastview);
+        pastTextView.setTypeface(Typeface.createFromAsset(returnView.getContext().getAssets(),"meiryo.ttc"),Typeface.BOLD);
+
+        SharedPreferences mySharedPreference=returnView.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
+        if(mySharedPreference.getString("returnString",null)!=null){
+            mainTextView.setText(mySharedPreference.getString("returnString","0"));
+            pastCalcTextView.setText(mySharedPreference.getString("returnFString","0"));
+            pastTextView.setText(mySharedPreference.getString("returnString","0"));
+
+            SharedPreferences.Editor mySPEditor=mySharedPreference.edit();
+            mySPEditor.remove("returnString");
+            mySPEditor.remove("returnFString");
+            mySPEditor.commit();
         }
-        if(sendCFResult!="X"){
-            TextView formulaText=(TextView)returnView.getRootView().findViewById(R.id.pastcalc);
-            formulaText.setText(sendCFResult);
-        }
+
 
         ArrayList<Integer> buttonIdListNumber=new ArrayList<Integer>();
         buttonIdListNumber.add(R.id.button0);
@@ -110,16 +101,16 @@ public class MainFragment extends Fragment {
         buttonIdListCalculation.add(R.id.buttonminus);
         buttonIdListCalculation.add(R.id.buttontimes);
         buttonIdListCalculation.add(R.id.buttondevide);
-//        buttonIdListCalculation.add(R.id.buttonequal);
+        buttonIdListCalculation.add(R.id.buttonpercent);
 
         ArrayList<ImageButton> buttonListCalculation=new ArrayList<>();
-        for(int i=0;i<=3;i++){
+        for(int i=0;i<=4;i++){
             buttonListCalculation.add((ImageButton) returnView.findViewById(buttonIdListCalculation.get(i)));
         }
 
         OnClickListenerCalculation onClickListenerCalculation=new OnClickListenerCalculation(buttonListCalculation);
 
-        for(int i=0;i<=3;i++){
+        for(int i=0;i<=4;i++){
             buttonListCalculation.get(i).setOnClickListener(onClickListenerCalculation);
         }
 

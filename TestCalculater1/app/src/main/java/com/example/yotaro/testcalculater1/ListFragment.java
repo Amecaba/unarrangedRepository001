@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
  */
 public class ListFragment extends Fragment {
 
+    View returnView;
+
     public ListFragment() {
         // Required empty public constructor
     }
@@ -42,10 +45,10 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View returnView=inflater.inflate(R.layout.fragment_list, container, false);
+        returnView=inflater.inflate(R.layout.fragment_list, container, false);
 
-        SharedPreferences myPrefList=returnView.getContext().getSharedPreferences("list",Context.MODE_PRIVATE);
-        int cycler=myPrefList.getInt("flag", 0);
+        SharedPreferences mySharedPreference=returnView.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
+        int cycler=mySharedPreference.getInt("listFlag", 0);
 
         TextView calculationFormula1=(TextView)returnView.getRootView().findViewById(R.id.calculationformula1);
         TextView calculationFormula2=(TextView)returnView.getRootView().findViewById(R.id.calculationformula2);
@@ -55,23 +58,13 @@ public class ListFragment extends Fragment {
         TextView calculationFormula6=(TextView)returnView.getRootView().findViewById(R.id.calculationformula6);
         TextView calculationFormula7=(TextView)returnView.getRootView().findViewById(R.id.calculationformula7);
 
-//        TextView calculationresult1=(TextView)returnView.getRootView().findViewById(R.id.calculationresult1);
-//        TextView calculationresult2=(TextView)returnView.getRootView().findViewById(R.id.calculationresult2);
-//        TextView calculationresult3=(TextView)returnView.getRootView().findViewById(R.id.calculationresult3);
-//        TextView calculationresult4=(TextView)returnView.getRootView().findViewById(R.id.calculationresult4);
-//        TextView calculationresult5=(TextView)returnView.getRootView().findViewById(R.id.calculationresult5);
-//        TextView calculationresult6=(TextView)returnView.getRootView().findViewById(R.id.calculationresult6);
-//        TextView calculationresult7=(TextView)returnView.getRootView().findViewById(R.id.calculationresult7);
-
-
-
-        calculationFormula1.setText(myPrefList.getString("calclist"+String.valueOf(cycler),""));
-        calculationFormula2.setText(myPrefList.getString("calclist"+String.valueOf((cycler-1+7)%7),""));
-        calculationFormula3.setText(myPrefList.getString("calclist"+String.valueOf((cycler-2+7)%7),""));
-        calculationFormula4.setText(myPrefList.getString("calclist"+String.valueOf((cycler-3+7)%7),""));
-        calculationFormula5.setText(myPrefList.getString("calclist"+String.valueOf((cycler-4+7)%7),""));
-        calculationFormula6.setText(myPrefList.getString("calclist"+String.valueOf((cycler-5+7)%7),""));
-        calculationFormula7.setText(myPrefList.getString("calclist" + String.valueOf((cycler - 6 + 7) % 7), ""));
+        calculationFormula1.setText(mySharedPreference.getString("calclist" + String.valueOf(cycler), ""));
+        calculationFormula2.setText(mySharedPreference.getString("calclist"+String.valueOf((cycler-1+7)%7),""));
+        calculationFormula3.setText(mySharedPreference.getString("calclist"+String.valueOf((cycler-2+7)%7),""));
+        calculationFormula4.setText(mySharedPreference.getString("calclist"+String.valueOf((cycler-3+7)%7),""));
+        calculationFormula5.setText(mySharedPreference.getString("calclist"+String.valueOf((cycler-4+7)%7),""));
+        calculationFormula6.setText(mySharedPreference.getString("calclist"+String.valueOf((cycler-5+7)%7),""));
+        calculationFormula7.setText(mySharedPreference.getString("calclist" + String.valueOf((cycler - 6 + 7) % 7), ""));
 
         ArrayList<Integer> resultTextViewIdList=new ArrayList<>();
         resultTextViewIdList.add(R.id.calculationresult1);
@@ -86,9 +79,11 @@ public class ListFragment extends Fragment {
             resutlTextViewList.add((TextView)returnView.getRootView().findViewById(resultTextViewIdList.get(i)));
         }
         for(int i=0;i<=6;i++){
-            resutlTextViewList.get(i).setText(myPrefList.getString("resultlist" + String.valueOf((cycler - i + 7) % 7), ""));
+            resutlTextViewList.get(i).setText(mySharedPreference.getString("resultlist" + String.valueOf((cycler - i + 7) % 7), ""));
         }
 
+        //ここでImageBUtton押し下げ時の値渡しのために、resultのみ数列化。
+        //onClick時にSharedPreferenceからgetしてもよいかも。
         ArrayList<String> resultList=new ArrayList<>();
         for(int i=0;i<=6;i++){
             resultList.add(resutlTextViewList.get(i).getText().toString());
@@ -112,23 +107,108 @@ public class ListFragment extends Fragment {
         }
 
         ArrayList<Integer> returnButtonIdList=new ArrayList<>();
-        returnButtonIdList.add(R.id.arrowbutton1);
-        returnButtonIdList.add(R.id.arrowbutton2);
-        returnButtonIdList.add(R.id.arrowbutton3);
-        returnButtonIdList.add(R.id.arrowbutton4);
-        returnButtonIdList.add(R.id.arrowbutton5);
-        returnButtonIdList.add(R.id.arrowbutton6);
-        returnButtonIdList.add(R.id.arrowbutton7);
+        returnButtonIdList.add(R.id.buttonback1);
+        returnButtonIdList.add(R.id.buttonback2);
+        returnButtonIdList.add(R.id.buttonback3);
+        returnButtonIdList.add(R.id.buttonback4);
+        returnButtonIdList.add(R.id.buttonback5);
+        returnButtonIdList.add(R.id.buttonback6);
+        returnButtonIdList.add(R.id.buttonback7);
         ArrayList<ImageButton> returnButtonList=new ArrayList<>();
         for(int i=0;i<=6;i++){
             returnButtonList.add((ImageButton)returnView.getRootView().findViewById(returnButtonIdList.get(i)));
         }
         OnClickListenerReturns onClickListenerReturns=new OnClickListenerReturns(this.getActivity(),returnButtonList,resultList,calculationFormulaStringList);
-        for(ImageButton cyclerButton:returnButtonList){
+        for(ImageButton cyclerButton:returnButtonList) {
             cyclerButton.setOnClickListener(onClickListenerReturns);
         }
 
         return returnView;
+    }
+
+    public void reload(){
+        SharedPreferences mySharedPreference=returnView.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
+        int cycler=mySharedPreference.getInt("listFlag", 0);
+
+        TextView calculationFormula1=(TextView)returnView.getRootView().findViewById(R.id.calculationformula1);
+        TextView calculationFormula2=(TextView)returnView.getRootView().findViewById(R.id.calculationformula2);
+        TextView calculationFormula3=(TextView)returnView.getRootView().findViewById(R.id.calculationformula3);
+        TextView calculationFormula4=(TextView)returnView.getRootView().findViewById(R.id.calculationformula4);
+        TextView calculationFormula5=(TextView)returnView.getRootView().findViewById(R.id.calculationformula5);
+        TextView calculationFormula6=(TextView)returnView.getRootView().findViewById(R.id.calculationformula6);
+        TextView calculationFormula7=(TextView)returnView.getRootView().findViewById(R.id.calculationformula7);
+
+        calculationFormula1.setText(mySharedPreference.getString("calclist" + String.valueOf(cycler), ""));
+        calculationFormula2.setText(mySharedPreference.getString("calclist"+String.valueOf((cycler-1+7)%7),""));
+        calculationFormula3.setText(mySharedPreference.getString("calclist"+String.valueOf((cycler-2+7)%7),""));
+        calculationFormula4.setText(mySharedPreference.getString("calclist"+String.valueOf((cycler-3+7)%7),""));
+        calculationFormula5.setText(mySharedPreference.getString("calclist"+String.valueOf((cycler-4+7)%7),""));
+        calculationFormula6.setText(mySharedPreference.getString("calclist"+String.valueOf((cycler-5+7)%7),""));
+        calculationFormula7.setText(mySharedPreference.getString("calclist" + String.valueOf((cycler - 6 + 7) % 7), ""));
+
+        ArrayList<Integer> resultTextViewIdList=new ArrayList<>();
+        resultTextViewIdList.add(R.id.calculationresult1);
+        resultTextViewIdList.add(R.id.calculationresult2);
+        resultTextViewIdList.add(R.id.calculationresult3);
+        resultTextViewIdList.add(R.id.calculationresult4);
+        resultTextViewIdList.add(R.id.calculationresult5);
+        resultTextViewIdList.add(R.id.calculationresult6);
+        resultTextViewIdList.add(R.id.calculationresult7);
+        ArrayList<TextView> resutlTextViewList=new ArrayList<>();
+        for(int i=0;i<=6;i++){
+            resutlTextViewList.add((TextView)returnView.getRootView().findViewById(resultTextViewIdList.get(i)));
+        }
+        for(int i=0;i<=6;i++){
+            resutlTextViewList.get(i).setText(mySharedPreference.getString("resultlist" + String.valueOf((cycler - i + 7) % 7), ""));
+        }
+
+        //ここでImageBUtton押し下げ時の値渡しのために、resultのみ数列化。
+        //onClick時にSharedPreferenceからgetしてもよいかも。
+        ArrayList<String> resultList=new ArrayList<>();
+        for(int i=0;i<=6;i++){
+            resultList.add(resutlTextViewList.get(i).getText().toString());
+        }
+
+        ArrayList<Integer> calculationFormulaIdList=new ArrayList<>();
+        calculationFormulaIdList.add(R.id.calculationformula1);
+        calculationFormulaIdList.add(R.id.calculationformula2);
+        calculationFormulaIdList.add(R.id.calculationformula3);
+        calculationFormulaIdList.add(R.id.calculationformula4);
+        calculationFormulaIdList.add(R.id.calculationformula5);
+        calculationFormulaIdList.add(R.id.calculationformula6);
+        calculationFormulaIdList.add(R.id.calculationformula7);
+        ArrayList<TextView> calclulationFormulaList=new ArrayList<>();
+        for(int i=0;i<=6;i++){
+            calclulationFormulaList.add((TextView)returnView.getRootView().findViewById(calculationFormulaIdList.get(i)));
+        }
+        ArrayList<String> calculationFormulaStringList=new ArrayList<>();
+        for(TextView b:calclulationFormulaList){
+            calculationFormulaStringList.add(b.getText().toString());
+        }
+
+        ArrayList<Integer> returnButtonIdList=new ArrayList<>();
+        returnButtonIdList.add(R.id.buttonback1);
+        returnButtonIdList.add(R.id.buttonback2);
+        returnButtonIdList.add(R.id.buttonback3);
+        returnButtonIdList.add(R.id.buttonback4);
+        returnButtonIdList.add(R.id.buttonback5);
+        returnButtonIdList.add(R.id.buttonback6);
+        returnButtonIdList.add(R.id.buttonback7);
+        ArrayList<ImageButton> returnButtonList=new ArrayList<>();
+        for(int i=0;i<=6;i++){
+            returnButtonList.add((ImageButton)returnView.getRootView().findViewById(returnButtonIdList.get(i)));
+        }
+        OnClickListenerReturns onClickListenerReturns=new OnClickListenerReturns(this.getActivity(),returnButtonList,resultList,calculationFormulaStringList);
+        for(ImageButton cyclerButton:returnButtonList) {
+            cyclerButton.setOnClickListener(onClickListenerReturns);
+        }
+
+    }
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
