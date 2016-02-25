@@ -101,18 +101,20 @@ public class MainFragment extends Fragment {
         buttonIdListCalculation.add(R.id.buttonminus);
         buttonIdListCalculation.add(R.id.buttontimes);
         buttonIdListCalculation.add(R.id.buttondevide);
-        buttonIdListCalculation.add(R.id.buttonpercent);
 
         ArrayList<ImageButton> buttonListCalculation=new ArrayList<>();
-        for(int i=0;i<=4;i++){
+        for(int i=0;i<=3;i++){
             buttonListCalculation.add((ImageButton) returnView.findViewById(buttonIdListCalculation.get(i)));
         }
 
         OnClickListenerCalculation onClickListenerCalculation=new OnClickListenerCalculation(buttonListCalculation);
 
-        for(int i=0;i<=4;i++){
+        for(int i=0;i<=3;i++){
             buttonListCalculation.get(i).setOnClickListener(onClickListenerCalculation);
         }
+
+        ImageButton percentButton=(ImageButton)returnView.getRootView().findViewById(R.id.buttonpercent);
+        percentButton.setOnClickListener(new OnClickListenerPercent());
 
         ImageButton equalButton=(ImageButton)returnView.findViewById(R.id.buttonequal);
         OnClickListenerEqual onClickListenerEqual=new OnClickListenerEqual();

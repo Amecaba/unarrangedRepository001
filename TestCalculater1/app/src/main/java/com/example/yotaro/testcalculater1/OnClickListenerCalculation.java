@@ -51,9 +51,9 @@ public class OnClickListenerCalculation implements View.OnClickListener {
                     if(mySharedPreference.getInt("mCFlag",0)==0) {
                         MethodRun methodRun = new MethodRun();
                         methodRun.runMethod(v);
-                        mySPEditor.putString("firstDouble", methodRun.returnDoubleString);//←この変数名は修正。
+                        mySPEditor.putString("firstDouble", String.valueOf(methodRun.returnDouble));//←この変数名は修正。
                         mySPEditor.commit();// .commit();
-                        mainTextView.setText(methodRun.returnDoubleString);
+//                        mainTextView.setText(methodRun.returnDoubleString);
                     }
                 }
 
