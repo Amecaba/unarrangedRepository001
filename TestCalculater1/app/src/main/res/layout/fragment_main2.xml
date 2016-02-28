@@ -6,11 +6,27 @@
     android:id="@+id/parentlayout">
 
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/mainfragmentswipearrow"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:padding="2dp"
+        />
 
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2"
+        android:orientation="vertical"
+        android:layout_weight="0.3777"
+        android:background="@drawable/listfragmenttextview">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+        android:layout_weight="4"
         android:textSize="20dp"
         android:gravity="center_vertical|right"
         android:id="@+id/pastcalc"
@@ -21,46 +37,50 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
+        android:layout_weight="6"
         android:textSize="30dp"
         android:gravity="center_vertical|right"
         android:text="0"
         android:id="@+id/pastview"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:orientation="horizontal"
-        android:background="@drawable/maintextviewbackgroud"
-        >
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.07"
-            android:id="@+id/methodview"
-            android:textSize="40dp"
-            android:gravity="center_vertical"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:orientation="horizontal"
+            android:background="@drawable/maintextviewbackgroud"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.07"
+                android:id="@+id/methodview"
+                android:textSize="40dp"
+                android:gravity="center_vertical"
+                />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.9"
-            android:id="@+id/mainview"
-            android:textSize="45dp"
-            android:text="0"
-            android:gravity="center_vertical|right"
-            />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:id="@+id/mainview"
+                android:textSize="45dp"
+                android:text="0"
+                android:gravity="center_vertical|right"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
+
+
 
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="1.1"
         android:columnCount="5"
         android:rowCount="6"
         android:id="@+id/mainlayout"
