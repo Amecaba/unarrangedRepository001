@@ -35,8 +35,10 @@ public class OnClickListenerNumber implements View.OnClickListener{
         mySPEditor.commit();
 
         String mainTextViewString;
+        String mainTextViewStringforzero;
         TextView mainTextView=(TextView)v.getRootView().findViewById(R.id.mainview);
         mainTextViewString=mainTextView.getText().toString().replace(",","");
+        mainTextViewStringforzero=mainTextView.getText().toString();
 
         //桁数を12桁で止める。（カンマを.replaceで除いた後で12桁判定
         //✖11桁までしか入らず？？
@@ -64,7 +66,19 @@ public class OnClickListenerNumber implements View.OnClickListener{
                         mainTextViewString="";
                     }
                     //数字キー
-                    if(i<=9) {
+                    if(i==0){
+                        if(mainTextViewString==""){
+                            mainTextView.setText("0");
+                        }
+                        else if(mainTextViewString.indexOf(".")==-1){
+                            inputDouble=Double.parseDouble(mainTextViewString+"0");
+                            mainTextView.setText(Methods.combertDobleToString(inputDouble));
+                        }
+                        else{
+                            mainTextView.setText(mainTextViewStringforzero+"0");
+                        }
+                    }
+                    else if(i>=1&&i<=9) {
                         inputNumber = i;
                         inputNumberString = Integer.toString(inputNumber);
                         //カンマ付加処理。
@@ -77,11 +91,11 @@ public class OnClickListenerNumber implements View.OnClickListener{
                             mainTextView.setText("0.");
                         }
                         else if(mainTextViewString.indexOf(".")!=-1){
-                            mainTextView.setText(mainTextViewString);
+                            mainTextView.setText(mainTextViewStringforzero);
                         }
                         else
                         {
-                            mainTextView.setText(mainTextViewString+".");
+                            mainTextView.setText(mainTextViewStringforzero+".");
                         }
                     }
                     else{
@@ -89,7 +103,12 @@ public class OnClickListenerNumber implements View.OnClickListener{
                         if(mainTextViewString.equals("")){
                             mainTextView.setText("0");
                         }
-                        else{mainTextView.setText(mainTextViewString+"000");//★ここにもカンマ処理いるよね・・。
+                        else if(mainTextViewString.indexOf(".")==-1){
+                            inputDouble=Double.parseDouble(mainTextViewString+"000");
+                            mainTextView.setText(Methods.combertDobleToString(inputDouble));
+                        }
+                        else{
+                            mainTextView.setText(mainTextViewStringforzero+"000");
                         }
                     }
                 }

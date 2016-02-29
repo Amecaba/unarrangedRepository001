@@ -9,6 +9,7 @@ public class Methods {
     public static String combertDobleToString(double internalDouble){
         NumberFormat nForm=NumberFormat.getNumberInstance();
         nForm.setMaximumFractionDigits(12);
+        nForm.setMinimumFractionDigits(0);
         String returnString=nForm.format(internalDouble);
         return returnString;
     }

@@ -30,15 +30,15 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
         return 2;
     }
 
-    @Override
-    public CharSequence getPageTitle(int i){
-        if(i==0){
-            return "ResultList";
-        }
-        else{
-            return "MainCalculater";
-        }
-    }
+//    @Override
+//    public CharSequence getPageTitle(int i){
+//        if(i==0){
+//            return "ResultList";
+//        }
+//        else{
+////            return "MainCalculater";
+//        }
+//    }
 
 
 }

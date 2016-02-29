@@ -26,6 +26,9 @@ public class OnClickListenerOthers implements View.OnClickListener {
             if(mainTextView.getText().toString().length()>1) {
                 mainTextView.setText(Methods.combertDobleToString(Double.parseDouble(mainTextViewString.substring(0, mainTextViewString.length() - 1))));
             }
+            else{
+                mainTextView.setText("0");
+            }
 
             //GT2度押しフラグの解除
             mySPEditor.remove("gTFlag");
