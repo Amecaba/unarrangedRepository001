@@ -3,65 +3,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/parentlayout"
-    android:background="#fffff0"
-    >
+    android:id="@+id/parentlayout">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/mainfragmentswipearrow"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:padding="2dp"
+        />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight="0.4777"
-        android:background="@drawable/maintextview4"
-        >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
-            android:orientation="horizontal"
-            >
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:layout_weight="10"
-            >
+        android:layout_weight="0.3777"
+        android:background="@drawable/maintextview2">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="4"
             android:paddingRight="8dp"
         android:textSize="20dp"
         android:gravity="center_vertical|right"
         android:id="@+id/pastcalc"
         android:text="0"
-            android:paddingTop="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="#ffffff"
         />
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="6"
         android:paddingRight="8dp"
         android:textSize="30dp"
         android:gravity="center_vertical|right"
         android:text="0"
         android:id="@+id/pastview"
-        android:paddingBottom="1dp"
-        android:layout_marginRight="10dp"
-        android:textColor="#ffffff"
         />
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,14 +65,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.9"
-                android:layout_marginRight="10dp"
-                android:paddingRight="6dp"
+                android:paddingRight="8dp"
                 android:id="@+id/mainview"
-                android:textSize="40dp"
+                android:textSize="45dp"
                 android:text="0"
                 android:gravity="center_vertical|right"
-                android:paddingTop="15dp"
-                android:textColor="#228b22"
                 />
 
         </LinearLayout>

@@ -52,10 +52,12 @@ public class OnClickListenerNumber implements View.OnClickListener{
             mPCFlag=mySharedPreference.getInt("mPCFlag", 0);
             //mPCFlagが1（つまりequalやcalculation押された直後）は、Viewの値を削除する。フラグは0へ。
             if(mPCFlag==1){
+//                String mainTextViewStringPath=mainTextViewString;
                 mainTextViewString="";
                 SharedPreferences.Editor mSPEditor=mySharedPreference.edit();
                 mSPEditor.putInt("mPCFlag", 0);
                 mSPEditor.commit();
+                MethodSetPasts.setPasts(v);
             }
 
 
@@ -87,7 +89,7 @@ public class OnClickListenerNumber implements View.OnClickListener{
                     }
                     else if(i==11){
                         //小数点押されたときの処理
-                        if(mainTextViewString.equals("")){
+                        if(mainTextViewString.equals("")&&mainTextViewStringforzero==null){
                             mainTextView.setText("0.");
                         }
                         else if(mainTextViewString.indexOf(".")!=-1){

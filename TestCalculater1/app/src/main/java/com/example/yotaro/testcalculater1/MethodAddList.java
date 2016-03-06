@@ -76,9 +76,10 @@ public class MethodAddList {
         mySPEditor.putString(resultlistName, applyDoubleString);
         mySPEditor.commit();
 
-        TextView pastCalc=(TextView)v.getRootView().findViewById(R.id.pastcalc);
-        TextView pastView=(TextView)v.getRootView().findViewById(R.id.pastview);
-        pastCalc.setText(insertString);
-        pastView.setText(applyDoubleString);
+        //2016/3/6 以下欄への表示タイミングの変更に伴い、カット
+//        TextView pastCalc=(TextView)v.getRootView().findViewById(R.id.pastcalc);
+//        TextView pastView=(TextView)v.getRootView().findViewById(R.id.pastview);
+//        pastCalc.setText(insertString);
+//        pastView.setText(applyDoubleString);
     }
 }

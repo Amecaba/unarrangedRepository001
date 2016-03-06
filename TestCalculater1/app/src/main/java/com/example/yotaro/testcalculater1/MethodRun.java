@@ -45,6 +45,7 @@ public class MethodRun {
             secondDouble=Double.parseDouble(mainTextView.getText().toString().replace(",",""));
         }
         else{
+            MethodSetPasts.setPasts(v);
             firstDouble=Double.parseDouble(mySharedPreference.getString("firstDoubleToNext", "0").replace(",",""));
             method=mySharedPreference.getInt("methodToNext", 0);
             secondDouble=Double.parseDouble(mySharedPreference.getString("secondDoubleToNext","0"));
