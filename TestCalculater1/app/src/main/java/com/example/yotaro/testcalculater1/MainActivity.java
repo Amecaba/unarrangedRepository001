@@ -25,11 +25,11 @@ public class MainActivity extends AppCompatActivity
 
         final ViewPager viewPager=(ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(new MainViewPagerAdapter(this.getSupportFragmentManager()));
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(0);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if(position==0){
+                if(position==1){
                     FragmentManager fRM=getSupportFragmentManager();
                     List<Fragment> fList=fRM.getFragments();
                     for(Fragment f:fList){

@@ -16,7 +16,7 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int i){
         switch(i){
-            case 0:
+            case 1:
                 return new ListFragment();
             default:
                 MainFragment internalMainFragment=new MainFragment();
