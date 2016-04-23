@@ -162,6 +162,10 @@ public class MainFragment extends Fragment {
             cercle.setOnClickListener(onClickListenerOthers);
         }
 
+        ImageButton setMainButton=(ImageButton)returnView.findViewById(R.id.setmainbutton);
+        OnClickListenerOtherFunctions onClickListenerOtherFunctions=new OnClickListenerOtherFunctions();
+        setMainButton.setOnClickListener(onClickListenerOtherFunctions);
+
         return returnView;
     }
 

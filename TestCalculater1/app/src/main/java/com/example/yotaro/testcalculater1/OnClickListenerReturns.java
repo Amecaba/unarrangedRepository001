@@ -45,6 +45,7 @@ public class OnClickListenerReturns implements View.OnClickListener {
             }
         }
 
+
         SharedPreferences mySharedPreference=v.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
         SharedPreferences.Editor mySPEditor=mySharedPreference.edit();
         mySPEditor.putString("returnString",returnString);
@@ -54,6 +55,6 @@ public class OnClickListenerReturns implements View.OnClickListener {
         ViewPager myViewPager=(ViewPager)v.getRootView().findViewById(R.id.pager);
         myViewPager.setAdapter(new MainViewPagerAdapter(innerActivity.getSupportFragmentManager()));
 
-        myViewPager.setCurrentItem(1);
+        myViewPager.setCurrentItem(0);
         }
     }
