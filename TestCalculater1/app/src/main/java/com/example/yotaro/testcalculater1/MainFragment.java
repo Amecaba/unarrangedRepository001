@@ -51,7 +51,7 @@ public class MainFragment extends Fragment {
         TextView mainTextView=(TextView)returnView.getRootView().findViewById(R.id.mainview);
         mainTextView.setTypeface(Typeface.createFromAsset(returnView.getContext().getAssets(), "meiryo.ttc"),Typeface.BOLD);
 
-        TextView pastCalcTextView=(TextView)returnView.findViewById(R.id.pastcalc);
+        TextView pastCalcTextView=(TextView)returnView.findVi2ewById(R.id.pastcalc);
         pastCalcTextView.setTypeface(Typeface.createFromAsset(returnView.getContext().getAssets(),"meiryo.ttc"),Typeface.BOLD);
 
         TextView pastTextView=(TextView)returnView.getRootView().findViewById(R.id.pastview);

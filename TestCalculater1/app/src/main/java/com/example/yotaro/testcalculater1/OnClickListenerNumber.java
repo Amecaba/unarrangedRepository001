@@ -13,17 +13,29 @@ import java.util.ArrayList;
  */
 public class OnClickListenerNumber implements View.OnClickListener{
 
-    ArrayList<Integer> internalButtonIdList;
     ArrayList<ImageButton> internalButtonList;
 
     //コンストラクタ
     public OnClickListenerNumber(ArrayList<Integer> receivedButtonIdList, ArrayList<ImageButton> receivedButtonList){
-        internalButtonIdList=receivedButtonIdList;
         internalButtonList=receivedButtonList;
     }
 
     @Override
     public void onClick(View v){
+
+        ArrayList<Integer> buttonIdListNumber=new ArrayList<Integer>();
+        buttonIdListNumber.add(R.id.button0);
+        buttonIdListNumber.add(R.id.button1);
+        buttonIdListNumber.add(R.id.button2);
+        buttonIdListNumber.add(R.id.button3);
+        buttonIdListNumber.add(R.id.button4);
+        buttonIdListNumber.add(R.id.button5);
+        buttonIdListNumber.add(R.id.button6);
+        buttonIdListNumber.add(R.id.button7);
+        buttonIdListNumber.add(R.id.button8);
+        buttonIdListNumber.add(R.id.button9);
+        buttonIdListNumber.add(R.id.button000);
+        buttonIdListNumber.add(R.id.buttondot);
 
         //mCFlag(calculationボタン群が押された直後か判別するフラグを0に。
         //mEFlag(equalボタンが押された直後か判別するフラグを0に。
@@ -42,7 +54,8 @@ public class OnClickListenerNumber implements View.OnClickListener{
 
         //桁数を12桁で止める。（カンマを.replaceで除いた後で12桁判定
         //✖11桁までしか入らず？？
-        if(mainTextViewString.length()<=12) {
+        //ここのロジックが回らなくなる＝seconddoubleがもとのまま・・・で、問題認知(4・24）
+        if(mainTextViewString.replace(".","").length()<=12) {
 
             int inputNumber;
             double inputDouble;

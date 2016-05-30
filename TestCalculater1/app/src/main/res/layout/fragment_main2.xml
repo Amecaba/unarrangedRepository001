@@ -55,10 +55,9 @@
         android:layout_weight="5"
             android:paddingRight="8dp"
         android:textSize="20dp"
-        android:gravity="center_vertical|right"
+        android:gravity="bottom|right"
         android:id="@+id/pastcalc"
         android:text="0"
-            android:paddingTop="10dp"
             android:layout_marginRight="10dp"
             android:textColor="#ffffff"
         />
