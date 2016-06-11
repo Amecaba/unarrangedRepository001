@@ -8,12 +8,16 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -46,12 +50,23 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View returnView=inflater.inflate(R.layout.fragment_main2,container,false);
+        final View returnView=inflater.inflate(R.layout.fragment_main2,container,false);
+
+
+        ImageButton settingButton=(ImageButton)returnView.findViewById(R.id.settingbutton);
+        settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity mACA=(AppCompatActivity)v.getContext();
+                FragmentManager mFRM=mACA.getSupportFragmentManager();
+                mFRM.beginTransaction().replace(R.id.container,new SettingFragment()).commit();
+            }
+        });
 
         TextView mainTextView=(TextView)returnView.getRootView().findViewById(R.id.mainview);
         mainTextView.setTypeface(Typeface.createFromAsset(returnView.getContext().getAssets(), "meiryo.ttc"),Typeface.BOLD);
 
-        TextView pastCalcTextView=(TextView)returnView.findVi2ewById(R.id.pastcalc);
+        TextView pastCalcTextView=(TextView)returnView.findViewById(R.id.pastcalc);
         pastCalcTextView.setTypeface(Typeface.createFromAsset(returnView.getContext().getAssets(),"meiryo.ttc"),Typeface.BOLD);
 
         TextView pastTextView=(TextView)returnView.getRootView().findViewById(R.id.pastview);
@@ -165,7 +180,6 @@ public class MainFragment extends Fragment {
         ImageButton setMainButton=(ImageButton)returnView.findViewById(R.id.setmainbutton);
         OnClickListenerOtherFunctions onClickListenerOtherFunctions=new OnClickListenerOtherFunctions();
         setMainButton.setOnClickListener(onClickListenerOtherFunctions);
-
         return returnView;
     }
 
@@ -205,7 +219,7 @@ public class MainFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(Uri uri);
     }
 
 }

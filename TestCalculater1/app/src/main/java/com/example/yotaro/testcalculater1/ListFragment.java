@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 
 
@@ -49,6 +52,10 @@ public class ListFragment extends Fragment {
 
         SharedPreferences mySharedPreference=returnView.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
         int cycler=mySharedPreference.getInt("listFlag", 0);
+
+        AdView mAdView=(AdView)returnView.findViewById(R.id.adView);
+        AdRequest adRequest=new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         TextView calculationFormula1=(TextView)returnView.getRootView().findViewById(R.id.calculationformula1);
         TextView calculationFormula2=(TextView)returnView.getRootView().findViewById(R.id.calculationformula2);
@@ -129,6 +136,11 @@ public class ListFragment extends Fragment {
     public void reload(){
         SharedPreferences mySharedPreference=returnView.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
         int cycler=mySharedPreference.getInt("listFlag", 0);
+
+
+        AdView mAdView=(AdView)returnView.findViewById(R.id.adView);
+        AdRequest adRequest=new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         TextView calculationFormula1=(TextView)returnView.getRootView().findViewById(R.id.calculationformula1);
         TextView calculationFormula2=(TextView)returnView.getRootView().findViewById(R.id.calculationformula2);

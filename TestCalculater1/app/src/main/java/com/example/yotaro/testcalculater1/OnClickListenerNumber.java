@@ -3,6 +3,7 @@ package com.example.yotaro.testcalculater1;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -55,7 +56,7 @@ public class OnClickListenerNumber implements View.OnClickListener{
         //桁数を12桁で止める。（カンマを.replaceで除いた後で12桁判定
         //✖11桁までしか入らず？？
         //ここのロジックが回らなくなる＝seconddoubleがもとのまま・・・で、問題認知(4・24）
-        if(mainTextViewString.replace(".","").length()<=12) {
+        if(mainTextViewString.replace(".","").length()<=11) {
 
             int inputNumber;
             double inputDouble;
@@ -97,8 +98,8 @@ public class OnClickListenerNumber implements View.OnClickListener{
                         inputNumber = i;
                         inputNumberString = Integer.toString(inputNumber);
                         //カンマ付加処理。
-                        inputDouble=Double.parseDouble(mainTextViewString+inputNumberString);
-                        mainTextView.setText(Methods.combertDobleToString(inputDouble));
+//                        inputDouble=new Double(mainTextViewString+inputNumberString);
+                        mainTextView.setText(Methods.combertStringToString(mainTextViewString+inputNumberString));
                     }
                     else if(i==11){
                         //小数点押されたときの処理

@@ -1,0 +1,14 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_enabled="true"
+        android:state_pressed="true"
+        android:drawable="@drawable/settingbuttonpush"
+        />
+
+    <item
+        android:state_enabled="true"
+        android:drawable="@drawable/settingbutton"
+        />
+
+
+</selector>

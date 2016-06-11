@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/parentlayout"
-    android:background="@drawable/mainlayoutleft1"
+    android:background="@drawable/maintextviewleft5"
     >
 
     <LinearLayout
@@ -20,6 +20,27 @@
             android:layout_weight="5"
             android:orientation="horizontal"
             >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4.3"
+                />
+
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="@drawable/selectorbuttonsettinb"
+                android:id="@+id/settingbutton"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                />
 
 
         </LinearLayout>
@@ -92,12 +113,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/methodview"
                 android:textSize="30dp"
-                android:layout_gravity="start"
                 android:paddingTop="0dp"
                 android:paddingLeft="2dp"
-                android:text="×"
-                android:gravity="top"
-                />
+                android:text="×" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -425,6 +443,7 @@
                 android:scaleType="fitXY"
                 android:id="@+id/button1"
                 android:src="@drawable/selectorbutton1"
+                android:soundEffectsEnabled="true"
                 />
 
             <ImageButton
