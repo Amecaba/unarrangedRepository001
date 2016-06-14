@@ -23,6 +23,8 @@ public class OnClickListenerNumber implements View.OnClickListener{
 
     @Override
     public void onClick(View v){
+        SharedPreferences mySharedPreference = v.getContext().getSharedPreferences("mySharedPreference",Context.MODE_PRIVATE);
+        if(mySharedPreference.getInt("ERRORFlag",0)==0){
 
         ArrayList<Integer> buttonIdListNumber=new ArrayList<Integer>();
         buttonIdListNumber.add(R.id.button0);
@@ -40,7 +42,7 @@ public class OnClickListenerNumber implements View.OnClickListener{
 
         //mCFlag(calculationボタン群が押された直後か判別するフラグを0に。
         //mEFlag(equalボタンが押された直後か判別するフラグを0に。
-        SharedPreferences mySharedPreference = v.getContext().getSharedPreferences("mySharedPreference",Context.MODE_PRIVATE);
+
         SharedPreferences.Editor mySPEditor=mySharedPreference.edit();
         mySPEditor.remove("mCFlag");
         mySPEditor.remove("mEFlag");
@@ -129,6 +131,7 @@ public class OnClickListenerNumber implements View.OnClickListener{
                     }
                 }
             }
+        }
         }
     }
 }

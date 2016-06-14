@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 
 /**
@@ -73,10 +73,19 @@ public class MethodRun {
 //            applyFLoatString=applyFloatStringBC;
 //        }
 
-        mainTextView.setText(Methods.combertDobleToString(returnDouble));
-
+        String checkString=returnDouble.toString();
+        if(checkString.indexOf("E")>=1){
+            mainTextView.setText("ERROR");
+            SharedPreferences.Editor mSPEditor=mySharedPreference.edit();
+            mSPEditor.putInt("ERRORFlag",1);
+            mSPEditor.commit();
+        }
+        else {
+            mainTextView.setText(Methods.combertDobleToString(returnDouble));
+            new MethodAddList(v,firstDouble,secondDouble,returnDouble,method);
+        }
         //リスト用のオブジェクトをインスタンス化（コンストラクタで必要な値をSharedPreferenceに保持）
-        new MethodAddList(v,firstDouble,secondDouble,returnDouble,method);
+
     }
 
 }

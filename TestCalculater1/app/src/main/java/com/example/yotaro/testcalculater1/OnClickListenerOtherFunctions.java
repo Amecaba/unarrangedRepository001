@@ -1,5 +1,7 @@
 package com.example.yotaro.testcalculater1;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.TextView;
 
@@ -9,9 +11,12 @@ import android.widget.TextView;
 public class OnClickListenerOtherFunctions implements View.OnClickListener{
     @Override
     public void onClick(View v){
-        TextView pastView=(TextView)v.getRootView().findViewById(R.id.pastview);
-        TextView mainView=(TextView)v.getRootView().findViewById(R.id.mainview);
-        String internalString=pastView.getText().toString();
-        mainView.setText(internalString);
+        SharedPreferences mySharedPreference=v.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
+        if(mySharedPreference.getInt("ERRORFlag",0)==0) {
+            TextView pastView = (TextView) v.getRootView().findViewById(R.id.pastview);
+            TextView mainView = (TextView) v.getRootView().findViewById(R.id.mainview);
+            String internalString = pastView.getText().toString();
+            mainView.setText(internalString);
+        }
     }
 }

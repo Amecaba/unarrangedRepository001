@@ -37,24 +37,26 @@ public class OnClickListenerReturns implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v){
-        for(int i=0;i<=6;i++){
-            if(v==innerbuttonList.get(i)){
-                returnString=innerstringList.get(i);
-                returnFString=innercfstringList.get(i);
+    public void onClick(View v) {
+        SharedPreferences mySharedPreference = v.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
+        if (mySharedPreference.getInt("ERRORFlag", 0) == 0) {
+            for (int i = 0; i <= 6; i++) {
+                if (v == innerbuttonList.get(i)) {
+                    returnString = innerstringList.get(i);
+                    returnFString = innercfstringList.get(i);
+                }
             }
+
+            SharedPreferences.Editor mySPEditor = mySharedPreference.edit();
+            mySPEditor.putString("returnString", returnString);
+            mySPEditor.putString("returnFString", returnFString);
+            mySPEditor.commit();
+
+            ViewPager myViewPager = (ViewPager) v.getRootView().findViewById(R.id.pager);
+            myViewPager.setAdapter(new MainViewPagerAdapter(innerActivity.getSupportFragmentManager()));
+
+            myViewPager.setCurrentItem(0);
         }
+    }
 
-
-        SharedPreferences mySharedPreference=v.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
-        SharedPreferences.Editor mySPEditor=mySharedPreference.edit();
-        mySPEditor.putString("returnString",returnString);
-        mySPEditor.putString("returnFString",returnFString);
-        mySPEditor.commit();
-
-        ViewPager myViewPager=(ViewPager)v.getRootView().findViewById(R.id.pager);
-        myViewPager.setAdapter(new MainViewPagerAdapter(innerActivity.getSupportFragmentManager()));
-
-        myViewPager.setCurrentItem(0);
-        }
     }

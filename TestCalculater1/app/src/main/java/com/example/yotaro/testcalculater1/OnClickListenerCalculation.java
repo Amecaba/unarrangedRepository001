@@ -34,11 +34,10 @@ public class OnClickListenerCalculation implements View.OnClickListener {
         //mainViewと一緒にmethodViewも取得。
         TextView mainTextView = (TextView) v.getRootView().findViewById(R.id.mainview);
         String mainTextViewString = mainTextView.getText().toString();
+        String forDecisionString = mainTextViewString.replace(",", "").replace(".", "");
         TextView methodView = (TextView) v.getRootView().findViewById(R.id.methodview);
 
-        if (mainTextView.length() >= 12) {
-            Toast.makeText(v.getContext(), "扱い桁数超過、CAで初期化してください。", Toast.LENGTH_SHORT).show();
-        } else {
+        if (mySharedPreference.getInt("ERRORFlag", 0) == 0) {
 
             for (int i = 0; i <= 3; i++) {
                 if (v == internalButtonList.get(i)) {
@@ -57,7 +56,7 @@ public class OnClickListenerCalculation implements View.OnClickListener {
                             methodRun.runMethod(v);
                             mySPEditor.putString("firstDouble", String.valueOf(methodRun.returnDouble));//←この変数名は修正。
                             mySPEditor.commit();// .commit();
-//                        mainTextView.setText(methodRun.returnDoubleString);
+//                            mainTextView.setText(methodRun.returnDoubleString);
                         }
                     }
 
@@ -78,5 +77,4 @@ public class OnClickListenerCalculation implements View.OnClickListener {
             mySPEditor.commit();
         }
     }
-
 }

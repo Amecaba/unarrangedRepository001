@@ -13,35 +13,39 @@ import java.io.InterruptedIOException;
 public class OnClickListenerEqual implements View.OnClickListener {
 
     @Override
-    public void onClick(View v){
+    public void onClick(View v) {
 
-        MethodRun methodRun=new MethodRun();
-        methodRun.runMethod(v);
+        SharedPreferences mySharedPreference = v.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
 
-        //equal連打の場合の値を保持。
-        SharedPreferences mySharedPreference=v.getContext().getSharedPreferences("mySharedPreference",Context.MODE_PRIVATE);
-        SharedPreferences.Editor mySPEditor=mySharedPreference.edit();
-        mySPEditor.putString("firstDoubleToNext", String.valueOf(methodRun.returnDouble));
-        mySPEditor.putString("secondDoubleToNext", String.valueOf(methodRun.secondDouble));//★ここDoubleに修正だね、たぶん
-        mySPEditor.putInt("methodToNext",methodRun.method);
-        mySPEditor.remove("firstDouble");
+        if (mySharedPreference.getInt("ERRORFlag", 0) == 0) {
+            MethodRun methodRun = new MethodRun();
+            methodRun.runMethod(v);
 
-        //mCFlag(calculationボタン群が押された直後かを判別するフラグを0に。
-        //mEFlag(equalボタンが押された直後か判別するフラグを1に（押された直後と設定）
-        mySPEditor.remove("mCFlag");
-        mySPEditor.putInt("mEFlag",1);
-        mySPEditor.putInt("mPCFlag",1);
+            //equal連打の場合の値を保持。
 
-        //GTに計算結果を追加する処理。
-        double gTDouble=Double.parseDouble(mySharedPreference.getString("gTDouble", "0").replace(",",""));
-        double returnGTDouble=gTDouble+methodRun.returnDouble;
-        mySPEditor.putString("gTDouble", String.valueOf(returnGTDouble));
-        //GTの連続押し下げ判別フラグを0（連続でない）に。
-        mySPEditor.remove("gTFlag");
-        mySPEditor.commit();
+            SharedPreferences.Editor mySPEditor = mySharedPreference.edit();
+            mySPEditor.putString("firstDoubleToNext", String.valueOf(methodRun.returnDouble));
+            mySPEditor.putString("secondDoubleToNext", String.valueOf(methodRun.secondDouble));//★ここDoubleに修正だね、たぶん
+            mySPEditor.putInt("methodToNext", methodRun.method);
+            mySPEditor.remove("firstDouble");
 
-        //methodViewをクリア。計算結果のmainViewへの表示は、RunMethod側で持っている。
-        TextView methodView=(TextView)v.getRootView().findViewById(R.id.methodview);
-        methodView.setText("");
+            //mCFlag(calculationボタン群が押された直後かを判別するフラグを0に。
+            //mEFlag(equalボタンが押された直後か判別するフラグを1に（押された直後と設定）
+            mySPEditor.remove("mCFlag");
+            mySPEditor.putInt("mEFlag", 1);
+            mySPEditor.putInt("mPCFlag", 1);
+
+            //GTに計算結果を追加する処理。
+            double gTDouble = Double.parseDouble(mySharedPreference.getString("gTDouble", "0").replace(",", ""));
+            double returnGTDouble = gTDouble + methodRun.returnDouble;
+            mySPEditor.putString("gTDouble", String.valueOf(returnGTDouble));
+            //GTの連続押し下げ判別フラグを0（連続でない）に。
+            mySPEditor.remove("gTFlag");
+            mySPEditor.commit();
+
+            //methodViewをクリア。計算結果のmainViewへの表示は、RunMethod側で持っている。
+            TextView methodView = (TextView) v.getRootView().findViewById(R.id.methodview);
+            methodView.setText("");
+        }
     }
 }

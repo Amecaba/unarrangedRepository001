@@ -27,6 +27,7 @@ public class OnClickListenerCseries implements View.OnClickListener {
         SharedPreferences mySharedPreference = v.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
         SharedPreferences.Editor mSPEditor=mySharedPreference.edit();
         mSPEditor.remove("gTFlag");
+        mSPEditor.remove("ERRORFlag");
         mSPEditor.commit();
     }
 

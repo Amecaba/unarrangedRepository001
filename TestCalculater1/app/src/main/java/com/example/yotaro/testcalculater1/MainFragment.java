@@ -42,7 +42,18 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        SharedPreferences mySharedPreference=getContext().getSharedPreferences("mySharedPreference",Context.MODE_PRIVATE);
+        SharedPreferences.Editor mSPEditor=mySharedPreference.edit();
+        mSPEditor.remove("firstDouble");
+        mSPEditor.remove("secondDouble");
+        mSPEditor.remove("mCFlag");
+        mSPEditor.remove("mEFlag");
+        mSPEditor.remove("mPCFlag");
+        mSPEditor.remove("mTFlag");
+        mSPEditor.remove("ERRORFlag");
+        mSPEditor.commit();
     }
 
     @Override
@@ -70,7 +81,7 @@ public class MainFragment extends Fragment {
         pastCalcTextView.setTypeface(Typeface.createFromAsset(returnView.getContext().getAssets(),"meiryo.ttc"),Typeface.BOLD);
 
         TextView pastTextView=(TextView)returnView.getRootView().findViewById(R.id.pastview);
-        pastTextView.setTypeface(Typeface.createFromAsset(returnView.getContext().getAssets(),"meiryo.ttc"),Typeface.BOLD);
+//        pastTextView.setTypeface(Typeface.createFromAsset(returnView.getContext().getAssets(),"meiryo.ttc"),Typeface.BOLD);
 
         SharedPreferences mySharedPreference=returnView.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
         if(mySharedPreference.getString("returnString",null)!=null){

@@ -19,37 +19,38 @@ public class OnClickListenerMseries implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v){
-        double returnMemoryDouble=0;
-        TextView mainTextView=(TextView)v.getRootView().findViewById(R.id.mainview);
-        double mainTextViewDouble=Double.parseDouble(mainTextView.getText().toString().replace(",",""));
-        SharedPreferences mySharedPreference=v.getContext().getSharedPreferences("mySharedPreference",Context.MODE_PRIVATE);
-        SharedPreferences.Editor mySPEditor=mySharedPreference.edit();
-        double memoryDouble=Double.parseDouble(mySharedPreference.getString("memory","0"));
-        String memoryDoubleApply;
+    public void onClick(View v) {
+        SharedPreferences mySharedPreference = v.getContext().getSharedPreferences("mySharedPreference", Context.MODE_PRIVATE);
+        if (mySharedPreference.getInt("ERRORFlag", 0) == 0) {
+            double returnMemoryDouble = 0;
+            TextView mainTextView = (TextView) v.getRootView().findViewById(R.id.mainview);
+            double mainTextViewDouble = Double.parseDouble(mainTextView.getText().toString().replace(",", ""));
+            SharedPreferences.Editor mySPEditor = mySharedPreference.edit();
+            double memoryDouble = Double.parseDouble(mySharedPreference.getString("memory", "0"));
+            String memoryDoubleApply;
 
-        for(int i=0;i<=3;i++){
-            if(v==internalButtonIdList.get(i)){
-                if(i<=2) {
-                    if (i == 0) {
-                        mySPEditor.putString("memory",String.valueOf(memoryDouble+mainTextViewDouble));
-                    } else if (i == 1) {
-                        mySPEditor.putString("memory",String.valueOf(memoryDouble-mainTextViewDouble));
-                    } else if (i == 2) {
-                        mySPEditor.remove("memory");
+            for (int i = 0; i <= 3; i++) {
+                if (v == internalButtonIdList.get(i)) {
+                    if (i <= 2) {
+                        if (i == 0) {
+                            mySPEditor.putString("memory", String.valueOf(memoryDouble + mainTextViewDouble));
+                        } else if (i == 1) {
+                            mySPEditor.putString("memory", String.valueOf(memoryDouble - mainTextViewDouble));
+                        } else if (i == 2) {
+                            mySPEditor.remove("memory");
+                        }
+                        mySPEditor.commit();
+                    } else if (i == 3) {
+                        mainTextView.setText(Methods.combertDobleToString(Double.parseDouble(mySharedPreference.getString("memory", "0"))));
                     }
-                    mySPEditor.commit();
-                }
-                else if(i==3){
-                    mainTextView.setText(Methods.combertDobleToString(Double.parseDouble(mySharedPreference.getString("memory","0"))));
-                }
 
+                }
             }
-        }
 
-        //GT2度押しフラグの解除
-        mySPEditor.remove("gTFlag");
-        mySPEditor.commit();
+            //GT2度押しフラグの解除
+            mySPEditor.remove("gTFlag");
+            mySPEditor.commit();
+        }
     }
 
 }
